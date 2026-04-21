@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -7,5 +12,20 @@
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradientMove 10s ease infinite;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade {
+  animation: fadeInUp 0.8s ease forwards;
 }

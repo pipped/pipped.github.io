@@ -51,8 +51,7 @@ export default function DylanPortfolio() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.12),transparent_30%)]" />
+  <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 animate-gradient text-slate-100">
 
       <main className="relative mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
         <section className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:py-12">

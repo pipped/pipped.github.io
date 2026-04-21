@@ -214,7 +214,7 @@ export default function DylanPortfolio() {
               GitHub Profile
             </a>
             <a
-              href="mailto:your-email@example.com"
+              href="mailto:dylansokolov1@gmail.com"
               className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100"
             >
               Contact Me

@@ -1,6 +1,15 @@
 export default function DylanPortfolio() {
   const projects = [
     {
+      
+  title: "MessyApp",
+  tag: "Senior Design • NFC Application",
+  description:
+    "Developed an NFC-based wardrobe management application that connects physical clothing items to a digital system. Integrated weather data and implemented outfit generation features to provide intelligent clothing recommendations. Worked across the stack to build, test, and deploy a real-world application.",
+  stack: ["NFC", "Full Stack", "Web App", "APIs", "Team Project"],
+  link: "https://messyapp.org",
+},
+    {
       title: "Home Lab",
       tag: "Infrastructure / Networking",
       description:

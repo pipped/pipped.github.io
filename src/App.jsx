@@ -1,14 +1,13 @@
 export default function DylanPortfolio() {
   const projects = [
     {
-      
-  title: "MessyApp",
-  tag: "Senior Design • NFC Application",
-  description:
-    "Developed an NFC-based wardrobe management application that connects physical clothing items to a digital system. Integrated weather data and implemented outfit generation features to provide intelligent clothing recommendations. Worked across the stack to build, test, and deploy a real-world application.",
-  stack: ["NFC", "Full Stack", "Web App", "APIs", "Team Project"],
-  link: "https://messyapp.org",
-},
+      title: "MessyApp",
+      tag: "Senior Design • NFC Application",
+      description:
+        "Developed an NFC-based wardrobe management application that connects physical clothing items to a digital system. Integrated weather data and implemented outfit generation features to provide intelligent clothing recommendations. Worked across the stack to build, test, and deploy a real-world application.",
+      stack: ["NFC", "Full Stack", "Web App", "APIs", "Team Project"],
+      link: "https://messyapp.org",
+    },
     {
       title: "Home Lab",
       tag: "Infrastructure / Networking",
@@ -51,10 +50,9 @@ export default function DylanPortfolio() {
   ];
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 animate-gradient text-slate-100">
-
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 animate-gradient text-slate-100">
       <main className="relative mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
-        <section className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:py-12">
+        <section className="animate-fade grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:py-12">
           <div className="space-y-6">
             <div className="inline-flex items-center rounded-full border border-slate-800 bg-slate-900/80 px-4 py-2 text-sm text-slate-300 shadow-lg shadow-black/20 backdrop-blur">
               Dylan • IT Portfolio
@@ -74,29 +72,29 @@ export default function DylanPortfolio() {
 
             <div className="flex flex-wrap gap-3">
               <a
-  href="https://github.com/pipped"
-  target="_blank"
-  rel="noreferrer"
-  className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-slate-950"
->
-  GitHub
-</a>
+                href="https://github.com/pipped"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-slate-950 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+              >
+                GitHub
+              </a>
 
-<a
-  href="https://www.linkedin.com/in/dylansokolov/"
-  target="_blank"
-  rel="noreferrer"
-  className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100"
->
-  LinkedIn
-</a>
+              <a
+                href="https://www.linkedin.com/in/dylansokolov/"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.35)]"
+              >
+                LinkedIn
+              </a>
 
-<a
-  href="mailto:dylansokolov1@gmail.com"
-  className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100"
->
-  Email Me
-</a>
+              <a
+                href="mailto:dylansokolov1@gmail.com"
+                className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.35)]"
+              >
+                Email Me
+              </a>
             </div>
           </div>
 
@@ -119,7 +117,7 @@ export default function DylanPortfolio() {
           </div>
         </section>
 
-        <section className="mt-16 grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
+        <section className="animate-fade mt-16 grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-black/20">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">About me</p>
             <h2 className="mt-4 text-2xl font-semibold text-white">Focused on practical IT work</h2>
@@ -141,7 +139,7 @@ export default function DylanPortfolio() {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="rounded-full border border-slate-700 bg-slate-950/80 px-4 py-2 text-sm text-slate-200"
+                  className="rounded-full border border-slate-700 bg-slate-950/80 px-4 py-2 text-sm text-slate-200 transition duration-200 ease-in-out hover:scale-105"
                 >
                   {skill}
                 </span>
@@ -150,7 +148,7 @@ export default function DylanPortfolio() {
           </div>
         </section>
 
-        <section id="projects" className="mt-16">
+        <section id="projects" className="animate-fade mt-16">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Featured work</p>
@@ -162,7 +160,7 @@ export default function DylanPortfolio() {
             {projects.map((project) => (
               <article
                 key={project.title}
-                className="group flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/75 p-6 shadow-xl shadow-black/20 transition hover:-translate-y-1 hover:border-slate-600"
+                className="group flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/75 p-6 shadow-xl shadow-black/20 transition duration-300 ease-in-out hover:-translate-y-2 hover:scale-[1.02] hover:border-slate-600 hover:shadow-[0_0_25px_rgba(59,130,246,0.25)]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-xl font-semibold text-white">{project.title}</h3>
@@ -175,7 +173,7 @@ export default function DylanPortfolio() {
                   {project.stack.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 text-xs text-slate-300"
+                      className="rounded-full border border-slate-700 bg-slate-950/80 px-4 py-2 text-sm text-slate-200 transition duration-200 ease-in-out hover:scale-105"
                     >
                       {item}
                     </span>
@@ -186,7 +184,7 @@ export default function DylanPortfolio() {
                     href={project.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center text-sm font-medium text-blue-300 transition group-hover:text-blue-200"
+                    className="inline-flex items-center text-sm font-medium text-blue-300 transition duration-200 ease-in-out group-hover:text-blue-200"
                   >
                     View project →
                   </a>
@@ -208,13 +206,13 @@ export default function DylanPortfolio() {
               href="https://github.com/pipped"
               target="_blank"
               rel="noreferrer"
-              className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-slate-950"
+              className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-slate-950 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,0.25)]"
             >
               GitHub Profile
             </a>
             <a
               href="mailto:dylansokolov1@gmail.com"
-              className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100"
+              className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.35)]"
             >
               Contact Me
             </a>

@@ -1,146 +1,201 @@
+import heroImage from './assets/hero.png'
+
+const projects = [
+  {
+    title: 'MessyApp',
+    tag: 'Senior Design / NFC Application',
+    description:
+      'Developed an NFC-based wardrobe management app that connects physical clothing items to a digital system with weather-aware outfit suggestions.',
+    stack: ['NFC', 'Full Stack', 'Web App', 'APIs', 'Team Project'],
+    link: 'https://messyapp.org',
+  },
+  {
+    title: 'Home Lab',
+    tag: 'Infrastructure / Networking',
+    description:
+      'Built a virtualized lab with Hyper-V, pfSense, Windows Server, Docker, and Ubuntu to practice segmentation, server roles, and day-to-day administration.',
+    stack: ['Hyper-V', 'pfSense', 'Windows Server', 'Active Directory', 'DNS', 'Docker'],
+    link: 'https://github.com/pipped/Home-Lab',
+  },
+  {
+    title: 'CIT',
+    tag: 'IT Operations',
+    description:
+      'Documented hands-on IT support work including installs, reinstalls, VMware deployment, troubleshooting, permissions, and security configuration.',
+    stack: ['Windows', 'Linux', 'VMware', 'SysAdmin', 'Troubleshooting', 'Security'],
+    link: 'https://github.com/pipped/CIT',
+  },
+  {
+    title: 'COMP',
+    tag: 'CS Foundations',
+    description:
+      'A coursework repository organized across branches that reflects steady technical growth in software, systems thinking, and version control.',
+    stack: ['Computer Science', 'Git', 'Branching', 'Coursework'],
+    link: 'https://github.com/pipped/COMP',
+  },
+]
+
+const skills = [
+  'CompTIA Security+',
+  'System Administration',
+  'Networking',
+  'Virtualization',
+  'Windows Server',
+  'Linux',
+  'Active Directory',
+  'DNS',
+  'Docker',
+  'pfSense',
+  'Hyper-V',
+  'VMware',
+  'Technical Troubleshooting',
+]
+
+const highlights = [
+  { value: '4', label: 'featured projects' },
+  { value: 'Security+', label: 'CompTIA certified' },
+  { value: '1', label: 'clear focus: infrastructure' },
+]
+
+const focusAreas = [
+  'Building realistic lab environments',
+  'Troubleshooting across Windows and Linux systems',
+  'Learning through hands-on infrastructure projects',
+]
+
 export default function DylanPortfolio() {
-  const projects = [
-    {
-      title: "MessyApp",
-      tag: "Senior Design • NFC Application",
-      description:
-        "Developed an NFC-based wardrobe management application that connects physical clothing items to a digital system. Integrated weather data and implemented outfit generation features to provide intelligent clothing recommendations. Worked across the stack to build, test, and deploy a real-world application.",
-      stack: ["NFC", "Full Stack", "Web App", "APIs", "Team Project"],
-      link: "https://messyapp.org",
-    },
-    {
-      title: "Home Lab",
-      tag: "Infrastructure / Networking",
-      description:
-        "Built a personal homelab as a virtualized network environment for testing, development, and system administration practice. The setup runs on a physical Hyper-V host and includes pfSense for firewall segmentation, a Windows Server 2019 VM for Active Directory and DNS, a Docker host for tools like Portainer and Pi-hole, and an Ubuntu VM for scripting and SSH-based management.",
-      stack: ["Hyper-V", "pfSense", "Windows Server", "Active Directory", "DNS", "Docker", "Ubuntu"],
-      link: "https://github.com/pipped/Home-Lab",
-    },
-    {
-      title: "CIT",
-      tag: "IT Operations",
-      description:
-        "Showcases hands-on IT work including Windows and Linux OS installations, system wipes and reinstalls, VMware-based virtual server deployment, troubleshooting compatibility issues, configuring user permissions, and applying network and security settings in lab-style environments.",
-      stack: ["Windows", "Linux", "VMware", "System Administration", "Troubleshooting", "Security Policies"],
-      link: "https://github.com/pipped/CIT",
-    },
-    {
-      title: "COMP",
-      tag: "CS Foundations",
-      description:
-        "A computer science repository organized across branches that reflects coursework, technical growth, and a foundation in software and systems thinking that complements hands-on IT and infrastructure work.",
-      stack: ["Computer Science", "Git", "Branching", "Coursework"],
-      link: "https://github.com/pipped/COMP",
-    },
-  ];
-
-  const skills = [
-    "System Administration",
-    "Networking",
-    "Virtualization",
-    "Windows Server",
-    "Linux",
-    "Active Directory",
-    "DNS",
-    "Docker",
-    "pfSense",
-    "Hyper-V",
-    "VMware",
-    "Technical Troubleshooting",
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 animate-gradient text-slate-100">
-      <main className="relative mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
-        <section className="animate-fade grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:py-12">
-          <div className="space-y-6">
-            <div className="inline-flex items-center rounded-full border border-slate-800 bg-slate-900/80 px-4 py-2 text-sm text-slate-300 shadow-lg shadow-black/20 backdrop-blur">
-              Dylan • IT Portfolio
+    <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top,_#17304f_0%,_#09111d_38%,_#050914_100%)] text-slate-100">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="orb orb-cyan" />
+        <div className="orb orb-amber" />
+        <div className="grid-overlay" />
+      </div>
+
+      <main className="relative mx-auto max-w-6xl px-5 py-6 sm:px-8 lg:px-12">
+        <header className="glass-panel glow-shell reveal-up mb-10 flex flex-col gap-4 rounded-[2rem] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] text-cyan-200/75">Dylan Sokolov</p>
+            <p className="mt-2 text-sm text-slate-300">Portfolio for IT support, systems, and infrastructure roles.</p>
+          </div>
+
+          <nav className="flex flex-wrap gap-2 text-sm text-slate-200">
+            <a href="#about" className="nav-pill">
+              About
+            </a>
+            <a href="#projects" className="nav-pill">
+              Projects
+            </a>
+            <a href="#contact" className="nav-pill">
+              Contact
+            </a>
+          </nav>
+        </header>
+
+        <section className="grid items-stretch gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7 sm:p-9">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-300/10 px-4 py-2 text-xs uppercase tracking-[0.28em] text-cyan-100">
+              Available for IT and infrastructure roles
             </div>
 
-            <div className="space-y-4">
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white md:text-6xl">
-                IT graduate building real systems, networks, and lab environments.
-              </h1>
-              <p className="max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
-                I’m Dylan, an IT student graduating this year with a focus on hands-on infrastructure,
-                system administration, virtualization, and networking. I enjoy building practical
-                environments that mirror real-world IT operations, from Windows Server services to
-                virtualized lab networks and Linux-based tooling.
-              </p>
-            </div>
+            <h1 className="mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Hands-on IT work, presented like someone ready to step into production environments.
+            </h1>
 
-            <div className="flex flex-wrap gap-3">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+              I&apos;m Dylan, an IT graduate focused on systems administration, networking, virtualization,
+              and practical troubleshooting. I enjoy building environments that feel real, useful, and
+              close to the kinds of problems teams solve every day.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="https://github.com/pipped"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-slate-950 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+                className="button-primary"
               >
-                GitHub
+                View GitHub
               </a>
-
               <a
                 href="https://www.linkedin.com/in/dylansokolov/"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.35)]"
+                className="button-secondary"
               >
                 LinkedIn
               </a>
-
-              <a
-                href="mailto:dylansokolov1@gmail.com"
-                className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.35)]"
-              >
+              <a href="mailto:dylansokolov1@gmail.com" className="button-secondary">
                 Email Me
               </a>
             </div>
-          </div>
 
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/75 p-6 shadow-2xl shadow-black/30 backdrop-blur">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Why hire me</p>
-            <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
-              <p>
-                I bring a practical, hands-on approach to IT work and enjoy learning by building,
-                testing, and troubleshooting real systems.
-              </p>
-              <p>
-                My projects reflect experience with virtual environments, operating systems,
-                firewall segmentation, server roles, and technical documentation.
-              </p>
-              <p>
-                I’m looking for an opportunity where I can grow in IT support, systems,
-                infrastructure, or junior administrator roles.
-              </p>
+            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+              {highlights.map((item, index) => (
+                <div key={item.label} className="stat-card reveal-up" style={{ animationDelay: `${0.08 * (index + 1)}s` }}>
+                  <div className="text-3xl font-semibold text-white">{item.value}</div>
+                  <div className="mt-2 text-sm text-slate-400">{item.label}</div>
+                </div>
+              ))}
             </div>
           </div>
+
+          <aside className="grid gap-6">
+            <div className="glass-panel glow-shell reveal-up relative overflow-hidden rounded-[2rem] p-5">
+              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cyan-300/15 to-transparent" />
+              <img
+                src={heroImage}
+                alt="Portfolio hero graphic"
+                className="floating-hero h-56 w-full rounded-[1.5rem] object-cover object-center"
+              />
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                <div className="glow-shell rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4">
+                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">Current focus</p>
+                  <p className="mt-3 text-lg font-medium text-white">Support, systems, networking, and lab operations</p>
+                </div>
+
+                <div className="glow-shell rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4">
+                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">What stands out</p>
+                  <ul className="mt-3 space-y-3 text-sm leading-6 text-slate-300">
+                    {focusAreas.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="mt-2 h-2 w-2 rounded-full bg-cyan-300" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </aside>
         </section>
 
-        <section className="animate-fade mt-16 grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-black/20">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">About me</p>
-            <h2 className="mt-4 text-2xl font-semibold text-white">Focused on practical IT work</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-300">
+        <section id="about" className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7">
+            <p className="section-label">About Me</p>
+            <h2 className="mt-4 text-3xl font-semibold text-white">Focused on practical infrastructure work</h2>
+            <p className="mt-5 text-sm leading-8 text-slate-300 sm:text-base">
               My portfolio is centered on the kind of work I want to keep doing professionally:
-              building environments, supporting systems, solving technical problems, and improving
-              reliability through thoughtful configuration and testing.
+              supporting systems, building environments, solving technical problems, and improving
+              reliability through careful setup and testing.
             </p>
-            <p className="mt-4 text-sm leading-7 text-slate-300">
-              I’m especially interested in roles where I can contribute to infrastructure, support,
-              networking, virtualization, or systems administration while continuing to grow my
-              technical depth.
+            <p className="mt-4 text-sm leading-8 text-slate-300 sm:text-base">
+              I also hold the CompTIA Security+ certification, which strengthens the security
+              foundation behind my systems, networking, and support work.
+            </p>
+            <p className="mt-4 text-sm leading-8 text-slate-300 sm:text-base">
+              The goal of this site is to show technical depth clearly. Instead of listing buzzwords, it
+              points to real projects involving Windows Server, virtualization, networking, Linux tools,
+              and hands-on troubleshooting.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-black/20">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Core skills</p>
+          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7">
+            <p className="section-label">Core Skills</p>
             <div className="mt-5 flex flex-wrap gap-3">
               {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-slate-700 bg-slate-950/80 px-4 py-2 text-sm text-slate-200 transition duration-200 ease-in-out hover:scale-105"
-                >
+                <span key={skill} className="skill-pill">
                   {skill}
                 </span>
               ))}
@@ -148,77 +203,91 @@ export default function DylanPortfolio() {
           </div>
         </section>
 
-        <section id="projects" className="animate-fade mt-16">
-          <div className="mb-8 flex items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Featured work</p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">Projects that represent my experience</h2>
+        <section id="projects" className="mt-8">
+          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7 sm:p-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="section-label">Featured Work</p>
+                <h2 className="mt-3 text-3xl font-semibold text-white">Projects that show how I work</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-7 text-slate-400">
+                Each project reflects a different angle of my experience, from application work to
+                infrastructure, support, and foundational computer science.
+              </p>
             </div>
-          </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            {projects.map((project) => (
-              <article
-                key={project.title}
-                className="group flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/75 p-6 shadow-xl shadow-black/20 transition duration-300 ease-in-out hover:-translate-y-2 hover:scale-[1.02] hover:border-slate-600 hover:shadow-[0_0_25px_rgba(59,130,246,0.25)]"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                    {project.tag}
-                  </span>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-slate-300">{project.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.stack.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-slate-700 bg-slate-950/80 px-4 py-2 text-sm text-slate-200 transition duration-200 ease-in-out hover:scale-105"
-                    >
-                      {item}
+            <div className="mt-8 grid gap-5 lg:grid-cols-2">
+              {projects.map((project, index) => (
+                <article key={project.title} className="project-card reveal-up">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
+                        Project {String(index + 1).padStart(2, '0')}
+                      </p>
+                      <h3 className="mt-3 text-2xl font-semibold text-white">{project.title}</h3>
+                    </div>
+                    <span className="rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs text-amber-100">
+                      {project.tag}
                     </span>
-                  ))}
-                </div>
-                <div className="mt-6 pt-2">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center text-sm font-medium text-blue-300 transition duration-200 ease-in-out group-hover:text-blue-200"
-                  >
-                    View project →
-                  </a>
-                </div>
-              </article>
-            ))}
+                  </div>
+
+                  <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">{project.description}</p>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.stack.map((item) => (
+                      <span key={item} className="skill-pill">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-8">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-cyan-200 transition hover:text-white"
+                    >
+                      Open project
+                      <span aria-hidden="true">-&gt;</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="mt-16 rounded-3xl border border-slate-800 bg-slate-900/75 p-8 shadow-2xl shadow-black/30">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Next step</p>
-          <h2 className="mt-3 text-3xl font-semibold text-white">Let’s connect</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300">
-            I’m graduating this year with an IT degree and actively looking for opportunities where I can
-            contribute, keep learning, and grow in infrastructure, support, or systems-focused roles.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="https://github.com/pipped"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-slate-950 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,0.25)]"
-            >
-              GitHub Profile
-            </a>
-            <a
-              href="mailto:dylansokolov1@gmail.com"
-              className="rounded-2xl border border-slate-700 bg-slate-950/70 px-5 py-3 text-sm font-medium text-slate-100 transition duration-200 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.35)]"
-            >
-              Contact Me
-            </a>
+        <section id="contact" className="mt-8">
+          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7 sm:p-8">
+            <p className="section-label">Next Step</p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+              <div>
+                <h2 className="text-3xl font-semibold text-white">Let&apos;s connect</h2>
+                <p className="mt-4 max-w-2xl text-sm leading-8 text-slate-300 sm:text-base">
+                  I&apos;m actively looking for opportunities where I can contribute, keep learning, and
+                  grow in infrastructure, support, or systems-focused roles. If that aligns with what
+                  you&apos;re building, I&apos;d love to talk.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3 lg:justify-end">
+                <a
+                  href="https://github.com/pipped"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button-primary"
+                >
+                  GitHub Profile
+                </a>
+                <a href="mailto:dylansokolov1@gmail.com" className="button-secondary">
+                  Contact Me
+                </a>
+              </div>
+            </div>
           </div>
         </section>
       </main>
     </div>
-  );
+  )
 }

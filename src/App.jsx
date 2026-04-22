@@ -10,12 +10,12 @@ const projects = [
     link: 'https://messyapp.org',
   },
   {
-    title: 'COMP',
-    tag: 'CS Foundations',
+    title: 'Home Lab',
+    tag: 'Infrastructure / Networking',
     description:
-      'A coursework repository organized across branches that reflects steady technical growth in software, systems thinking, and version control.',
-    stack: ['Computer Science', 'Git', 'Branching', 'Coursework'],
-    link: 'https://github.com/pipped/COMP',
+      'Built a virtualized lab with Hyper-V, pfSense, Windows Server, Docker, and Ubuntu to practice segmentation, server roles, and day-to-day administration.',
+    stack: ['Hyper-V', 'pfSense', 'Windows Server', 'Active Directory', 'DNS', 'Docker'],
+    link: 'https://github.com/pipped/Home-Lab',
   },
   {
     title: 'AI Transcribe',
@@ -52,7 +52,7 @@ const skills = [
 ]
 
 const highlights = [
-  { value: '3', label: 'featured projects' },
+  { value: '4', label: 'featured projects' },
   { value: 'Security+', label: 'CompTIA certified' },
   { value: '1', label: 'clear focus: infrastructure' },
 ]

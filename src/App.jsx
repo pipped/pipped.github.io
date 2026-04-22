@@ -1,5 +1,3 @@
-import heroImage from './assets/hero.png'
-
 const projects = [
   {
     title: 'MessyApp',
@@ -63,6 +61,18 @@ const focusAreas = [
   'Learning through hands-on infrastructure projects',
 ]
 
+const labServices = [
+  { name: 'AD / DNS', status: 'Online' },
+  { name: 'pfSense', status: 'Routing' },
+  { name: 'Docker', status: 'Running' },
+]
+
+const labStats = [
+  { value: '4', label: 'VMs in rotation' },
+  { value: '3', label: 'core services' },
+  { value: '24/7', label: 'lab mindset' },
+]
+
 export default function DylanPortfolio() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top,_#17304f_0%,_#09111d_38%,_#050914_100%)] text-slate-100">
@@ -109,24 +119,11 @@ export default function DylanPortfolio() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="https://github.com/pipped"
-                target="_blank"
-                rel="noreferrer"
-                className="button-primary"
-              >
-                View GitHub
+              <a href="#projects" className="button-primary">
+                View Projects
               </a>
-              <a
-                href="https://www.linkedin.com/in/dylansokolov/"
-                target="_blank"
-                rel="noreferrer"
-                className="button-secondary"
-              >
-                LinkedIn
-              </a>
-              <a href="mailto:dylansokolov1@gmail.com" className="button-secondary">
-                Email Me
+              <a href="#contact" className="button-secondary">
+                Let&apos;s Connect
               </a>
             </div>
 
@@ -143,11 +140,37 @@ export default function DylanPortfolio() {
           <aside className="grid gap-6">
             <div className="glass-panel glow-shell reveal-up relative overflow-hidden rounded-[2rem] p-5">
               <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cyan-300/15 to-transparent" />
-              <img
-                src={heroImage}
-                alt="Portfolio hero graphic"
-                className="floating-hero h-56 w-full rounded-[1.5rem] object-cover object-center"
-              />
+              <div className="lab-widget floating-hero min-h-[17rem] rounded-[1.5rem]">
+                <div className="lab-widget__glow" />
+                <div className="lab-widget__header">
+                  <div>
+                    <p className="lab-widget__eyebrow">Home Lab Widget</p>
+                    <h3 className="lab-widget__title">Infrastructure Snapshot</h3>
+                  </div>
+                  <span className="lab-widget__badge">Live Focus</span>
+                </div>
+
+                <div className="lab-widget__services">
+                  {labServices.map((service) => (
+                    <div key={service.name} className="lab-widget__service">
+                      <span className="lab-widget__dot" aria-hidden="true" />
+                      <div>
+                        <p className="lab-widget__service-name">{service.name}</p>
+                        <p className="lab-widget__service-status">{service.status}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="lab-widget__stats">
+                  {labStats.map((item) => (
+                    <div key={item.label} className="lab-widget__stat">
+                      <span className="lab-widget__stat-value">{item.value}</span>
+                      <span className="lab-widget__stat-label">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 <div className="glow-shell rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4">
@@ -279,6 +302,14 @@ export default function DylanPortfolio() {
                   className="button-primary"
                 >
                   GitHub Profile
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/dylansokolov/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button-secondary"
+                >
+                  LinkedIn
                 </a>
                 <a href="mailto:dylansokolov1@gmail.com" className="button-secondary">
                   Contact Me

@@ -10,6 +10,14 @@ const projects = [
     link: 'https://messyapp.org',
   },
   {
+    title: 'AI Transcribe',
+    tag: 'AI / Speech-to-Text',
+    description:
+      'An AI-powered transcription project focused on turning spoken audio into clean, usable text. It highlights work around speech processing, practical AI tooling, and building a project with real-world utility.',
+    stack: ['AI', 'Transcription', 'Speech-to-Text', 'Automation'],
+    link: 'https://github.com/pipped/ai-transcribe',
+  },
+  {
     title: 'Home Lab',
     tag: 'Infrastructure / Networking',
     description:
@@ -24,14 +32,6 @@ const projects = [
       'Documented hands-on IT support work including installs, reinstalls, VMware deployment, troubleshooting, permissions, and security configuration.',
     stack: ['Windows', 'Linux', 'VMware', 'SysAdmin', 'Troubleshooting', 'Security'],
     link: 'https://github.com/pipped/CIT',
-  },
-  {
-    title: 'COMP',
-    tag: 'CS Foundations',
-    description:
-      'A coursework repository organized across branches that reflects steady technical growth in software, systems thinking, and version control.',
-    stack: ['Computer Science', 'Git', 'Branching', 'Coursework'],
-    link: 'https://github.com/pipped/COMP',
   },
 ]
 
@@ -64,60 +64,6 @@ const focusAreas = [
 ]
 
 export default function DylanPortfolio() {
-<<<<<<< HEAD
-  const projects = [
-    {
-      
-  title: "MessyApp",
-  tag: "Senior Design • NFC Application",
-  description:
-    "Developed an NFC-based wardrobe management application that connects physical clothing items to a digital system. Integrated weather data and implemented outfit generation features to provide intelligent clothing recommendations. Worked across the stack to build, test, and deploy a real-world application.",
-  stack: ["NFC", "Full Stack", "Web App", "APIs", "Team Project"],
-  link: "https://messyapp.org",
-},
-    {
-      title: "AI Transcribe",
-      tag: "AI / Speech-to-Text",
-      description:
-        "An AI-powered transcription project focused on turning spoken audio into clean, usable text. It highlights work around speech processing, practical AI tooling, and building a project with real-world utility.",
-      stack: ["AI", "Transcription", "Speech-to-Text", "Automation"],
-      link: "https://github.com/pipped/ai-transcribe",
-    },
-    {
-      title: "Home Lab",
-      tag: "Infrastructure / Networking",
-      description:
-        "Built a personal homelab as a virtualized network environment for testing, development, and system administration practice. The setup runs on a physical Hyper-V host and includes pfSense for firewall segmentation, a Windows Server 2019 VM for Active Directory and DNS, a Docker host for tools like Portainer and Pi-hole, and an Ubuntu VM for scripting and SSH-based management.",
-      stack: ["Hyper-V", "pfSense", "Windows Server", "Active Directory", "DNS", "Docker", "Ubuntu"],
-      link: "https://github.com/pipped/Home-Lab",
-    },
-    {
-      title: "CIT",
-      tag: "IT Operations",
-      description:
-        "Showcases hands-on IT work including Windows and Linux OS installations, system wipes and reinstalls, VMware-based virtual server deployment, troubleshooting compatibility issues, configuring user permissions, and applying network and security settings in lab-style environments.",
-      stack: ["Windows", "Linux", "VMware", "System Administration", "Troubleshooting", "Security Policies"],
-      link: "https://github.com/pipped/CIT",
-    },
-  ];
-
-  const skills = [
-    "System Administration",
-    "Networking",
-    "Virtualization",
-    "Windows Server",
-    "Linux",
-    "Active Directory",
-    "DNS",
-    "Docker",
-    "pfSense",
-    "Hyper-V",
-    "VMware",
-    "Technical Troubleshooting",
-  ];
-
-=======
->>>>>>> f38e5acb4d6614b1cad955c169d97b15ce9512aa
   return (
     <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top,_#17304f_0%,_#09111d_38%,_#050914_100%)] text-slate-100">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">

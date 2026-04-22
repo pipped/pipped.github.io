@@ -122,6 +122,9 @@ export default function DylanPortfolio() {
               <a href="#projects" className="button-primary">
                 View Projects
               </a>
+              <a href="/resume.pdf" target="_blank" rel="noreferrer" className="button-secondary">
+                Resume
+              </a>
               <a href="#contact" className="button-secondary">
                 Let&apos;s Connect
               </a>

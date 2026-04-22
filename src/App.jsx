@@ -10,12 +10,12 @@ const projects = [
     link: 'https://messyapp.org',
   },
   {
-    title: 'AI Transcribe',
-    tag: 'AI / Speech-to-Text',
+    title: 'COMP',
+    tag: 'CS Foundations',
     description:
-      'An AI-powered transcription project focused on turning spoken audio into clean, usable text. It highlights work around speech processing, practical AI tooling, and building a project with real-world utility.',
-    stack: ['AI', 'Transcription', 'Speech-to-Text', 'Automation'],
-    link: 'https://github.com/pipped/ai-transcribe',
+      'A coursework repository organized across branches that reflects steady technical growth in software, systems thinking, and version control.',
+    stack: ['Computer Science', 'Git', 'Branching', 'Coursework'],
+    link: 'https://github.com/pipped/COMP',
   },
   {
     title: 'Home Lab',

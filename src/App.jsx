@@ -10,6 +10,14 @@ export default function DylanPortfolio() {
   link: "https://messyapp.org",
 },
     {
+      title: "AI Transcribe",
+      tag: "AI / Speech-to-Text",
+      description:
+        "An AI-powered transcription project focused on turning spoken audio into clean, usable text. It highlights work around speech processing, practical AI tooling, and building a project with real-world utility.",
+      stack: ["AI", "Transcription", "Speech-to-Text", "Automation"],
+      link: "https://github.com/pipped/ai-transcribe",
+    },
+    {
       title: "Home Lab",
       tag: "Infrastructure / Networking",
       description:
@@ -24,14 +32,6 @@ export default function DylanPortfolio() {
         "Showcases hands-on IT work including Windows and Linux OS installations, system wipes and reinstalls, VMware-based virtual server deployment, troubleshooting compatibility issues, configuring user permissions, and applying network and security settings in lab-style environments.",
       stack: ["Windows", "Linux", "VMware", "System Administration", "Troubleshooting", "Security Policies"],
       link: "https://github.com/pipped/CIT",
-    },
-    {
-      title: "COMP",
-      tag: "CS Foundations",
-      description:
-        "A computer science repository organized across branches that reflects coursework, technical growth, and a foundation in software and systems thinking that complements hands-on IT and infrastructure work.",
-      stack: ["Computer Science", "Git", "Branching", "Coursework"],
-      link: "https://github.com/pipped/COMP",
     },
   ];
 

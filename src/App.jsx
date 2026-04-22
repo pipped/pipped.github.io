@@ -18,12 +18,12 @@ const projects = [
     link: 'https://github.com/pipped/COMP',
   },
   {
-    title: 'Home Lab',
-    tag: 'Infrastructure / Networking',
+    title: 'AI Transcribe',
+    tag: 'AI / Speech-to-Text',
     description:
-      'Built a virtualized lab with Hyper-V, pfSense, Windows Server, Docker, and Ubuntu to practice segmentation, server roles, and day-to-day administration.',
-    stack: ['Hyper-V', 'pfSense', 'Windows Server', 'Active Directory', 'DNS', 'Docker'],
-    link: 'https://github.com/pipped/Home-Lab',
+      'An AI-powered transcription project focused on turning spoken audio into clean, usable text. It highlights work around speech processing, practical AI tooling, and building a project with real-world utility.',
+    stack: ['AI', 'Transcription', 'Speech-to-Text', 'Automation'],
+    link: 'https://github.com/pipped/ai-transcribe',
   },
   {
     title: 'CIT',

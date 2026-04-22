@@ -52,7 +52,7 @@ const skills = [
 ]
 
 const highlights = [
-  { value: '4', label: 'featured projects' },
+  { value: '3', label: 'featured projects' },
   { value: 'Security+', label: 'CompTIA certified' },
   { value: '1', label: 'clear focus: infrastructure' },
 ]

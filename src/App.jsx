@@ -1,34 +1,37 @@
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+
 const projects = [
   {
     title: 'MessyApp',
     tag: 'Senior Design / NFC Application',
     description:
-      'Developed an NFC-based wardrobe management app that connects physical clothing items to a digital system with weather-aware outfit suggestions.',
-    stack: ['NFC', 'Full Stack', 'Web App', 'APIs', 'Team Project'],
+      'NFC-based wardrobe management app connecting physical clothing items to a digital system with weather-aware outfit suggestions.',
+    stack: ['NFC', 'Full Stack', 'APIs', 'Team Project'],
     link: 'https://messyapp.org',
   },
   {
     title: 'Home Lab',
     tag: 'Infrastructure / Networking',
     description:
-      'Built a virtualized lab with Hyper-V, pfSense, Windows Server, Docker, and Ubuntu to practice segmentation, server roles, and day-to-day administration.',
-    stack: ['Hyper-V', 'pfSense', 'Windows Server', 'Active Directory', 'DNS', 'Docker'],
+      'Virtualized lab using Hyper-V, pfSense, Windows Server, Docker, and Ubuntu for segmentation, server roles, and admin practice.',
+    stack: ['Hyper-V', 'pfSense', 'Windows Server', 'Docker'],
     link: 'https://github.com/pipped/Home-Lab',
   },
   {
     title: 'AI Transcribe',
     tag: 'AI / Speech-to-Text',
     description:
-      'An AI-powered transcription project focused on turning spoken audio into clean, usable text. It highlights work around speech processing, practical AI tooling, and building a project with real-world utility.',
-    stack: ['AI', 'Transcription', 'Speech-to-Text', 'Automation'],
+      'Speech-to-text project focused on turning spoken audio into clean, usable text for real-world utility and automation workflows.',
+    stack: ['AI', 'Transcription', 'Automation'],
     link: 'https://github.com/pipped/ai-transcribe',
   },
   {
     title: 'CIT',
     tag: 'IT Operations',
     description:
-      'Documented hands-on IT support work including installs, reinstalls, VMware deployment, troubleshooting, permissions, and security configuration.',
-    stack: ['Windows', 'Linux', 'VMware', 'SysAdmin', 'Troubleshooting', 'Security'],
+      'Hands-on IT support documentation covering installs, VMware deployment, troubleshooting, permissions, and security configuration.',
+    stack: ['Windows', 'Linux', 'VMware', 'Security'],
     link: 'https://github.com/pipped/CIT',
   },
 ]
@@ -46,281 +49,430 @@ const skills = [
   'pfSense',
   'Hyper-V',
   'VMware',
-  'Technical Troubleshooting',
+  'Troubleshooting',
 ]
 
-const highlights = [
-  { value: '4', label: 'featured projects' },
-  { value: 'Security+', label: 'CompTIA certified' },
-  { value: '1', label: 'clear focus: infrastructure' },
+const profileDetails = [
+  { label: 'Direction', value: 'Network engineering and cybersecurity' },
+  { label: 'Education', value: 'CSUN IT degree, May 15, 2026' },
+  { label: 'Open To', value: 'Networking, security, IT support, systems' },
 ]
 
-const focusAreas = [
-  'Building realistic lab environments',
-  'Troubleshooting across Windows and Linux systems',
-  'Learning through hands-on infrastructure projects',
-]
-
-const labServices = [
-  { name: 'AD / DNS', status: 'Online' },
-  { name: 'pfSense', status: 'Routing' },
-  { name: 'Docker', status: 'Running' },
-]
-
-const labStats = [
-  { value: '4', label: 'VMs in rotation' },
-  { value: '3', label: 'core services' },
+const metrics = [
+  { value: '4', label: 'featured builds' },
+  { value: '13', label: 'core skills' },
   { value: '24/7', label: 'lab mindset' },
 ]
 
-export default function DylanPortfolio() {
+const operations = [
+  { title: 'Identity', detail: 'Active Directory, policy, and account management' },
+  { title: 'Network', detail: 'pfSense routing, segmentation, DNS, and firewall habits' },
+  { title: 'Systems', detail: 'Windows Server, Linux, Docker, and virtualized services' },
+]
+
+const zeroTrustPolicies = [
+  { name: 'Verify identity', state: 'MFA mindset' },
+  { name: 'Limit access', state: 'Least privilege' },
+  { name: 'Watch activity', state: 'Logs and alerts' },
+]
+
+const homeLabStatus = [
+  { service: 'pfSense', state: 'Routing' },
+  { service: 'AD / DNS', state: 'Identity' },
+  { service: 'Docker', state: 'Services' },
+  { service: 'Docs', state: 'Tracked' },
+]
+
+const terminalLines = [
+  { prompt: '$', text: 'cd ~/homelab/topology' },
+  { prompt: '$', text: 'ls' },
+  { prompt: '>', text: 'pfSense  ad-dns  docker  logs' },
+  { prompt: '$', text: 'open topology.map' },
+]
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.06,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
+const MotionAside = motion.aside
+const MotionDiv = motion.div
+const MotionHeader = motion.header
+const MotionSection = motion.section
+const MotionArticle = motion.article
+
+function Icon({ name }) {
+  const paths = {
+    moon: 'M21 12.8A8.5 8.5 0 1 1 11.2 3 6.6 6.6 0 0 0 21 12.8Z',
+    sun: 'M12 4V2m0 20v-2m8-8h2M2 12h2m14.95 6.95 1.41 1.41M3.64 3.64l1.41 1.41m13.9-1.41-1.41 1.41M3.64 20.36l1.41-1.41M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
+    arrow: 'M5 12h14m-6-6 6 6-6 6',
+    external: 'M7 17 17 7m0 0H9m8 0v8',
+    shield: 'M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z',
+  }
+
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top,_#17304f_0%,_#09111d_38%,_#050914_100%)] text-slate-100">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="orb orb-cyan" />
-        <div className="orb orb-amber" />
-        <div className="grid-overlay" />
-      </div>
+    <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d={paths[name]} />
+    </svg>
+  )
+}
 
-      <main className="relative mx-auto max-w-6xl px-5 py-6 sm:px-8 lg:px-12">
-        <header className="glass-panel glow-shell reveal-up mb-10 flex flex-col gap-4 rounded-[2rem] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-cyan-200/75">Dylan Sokolov</p>
-            <p className="mt-2 text-sm text-slate-300">Portfolio for IT support, systems, and infrastructure roles.</p>
-          </div>
+function CyberVisual() {
+  return (
+    <div className="cyber-visual" aria-label="Animated home lab network topology">
+      <svg viewBox="0 0 420 240" role="img">
+        <title>Home lab network topology</title>
+        <rect className="topology-zone zone-edge" x="24" y="26" width="104" height="188" rx="8" />
+        <rect className="topology-zone zone-lan" x="292" y="26" width="104" height="188" rx="8" />
+        <path className="topology-link link-main" d="M76 120H180" />
+        <path className="topology-link link-main" d="M240 120H344" />
+        <path className="topology-link link-branch" d="M344 120V72" />
+        <path className="topology-link link-branch" d="M344 120v48" />
+        <path className="topology-link link-branch" d="M210 150v36h134" />
 
-          <nav className="flex flex-wrap gap-2 text-sm text-slate-200">
-            <a href="#about" className="nav-pill">
-              About
-            </a>
-            <a href="#projects" className="nav-pill">
-              Projects
-            </a>
-            <a href="#contact" className="nav-pill">
-              Contact
-            </a>
-          </nav>
-        </header>
+        <g className="topology-device device-edge" transform="translate(76 120)">
+          <circle r="24" />
+          <text y="5">WAN</text>
+        </g>
+        <g className="topology-device device-firewall" transform="translate(210 120)">
+          <rect x="-36" y="-28" width="72" height="56" rx="8" />
+          <text y="-2">pfSense</text>
+          <text y="15">Firewall</text>
+        </g>
+        <g className="topology-device device-node" transform="translate(344 72)">
+          <rect x="-34" y="-21" width="68" height="42" rx="8" />
+          <text y="5">AD / DNS</text>
+        </g>
+        <g className="topology-device device-node" transform="translate(344 120)">
+          <rect x="-34" y="-21" width="68" height="42" rx="8" />
+          <text y="5">LAN</text>
+        </g>
+        <g className="topology-device device-node" transform="translate(344 168)">
+          <rect x="-34" y="-21" width="68" height="42" rx="8" />
+          <text y="5">Docker</text>
+        </g>
+        <g className="topology-device device-log" transform="translate(210 186)">
+          <rect x="-34" y="-18" width="68" height="36" rx="8" />
+          <text y="5">Logs</text>
+        </g>
 
-        <section className="grid items-stretch gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7 sm:p-9">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-300/10 px-4 py-2 text-xs uppercase tracking-[0.28em] text-cyan-100">
-              Available for IT and infrastructure roles
-            </div>
+        <circle className="packet packet-a" r="4" />
+        <circle className="packet packet-b" r="4" />
+        <circle className="packet packet-c" r="3.5" />
+        <circle className="packet packet-d" r="3.5" />
+        <circle className="packet packet-e" r="3.5" />
+      </svg>
+      <span className="scan-line" aria-hidden="true" />
+    </div>
+  )
+}
 
-            <h1 className="mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Hands-on IT work, presented like someone ready to step into production environments.
-            </h1>
+function RevealSection({ className, children, ...props }) {
+  return (
+    <MotionSection
+      {...props}
+      className={className}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.22 }}
+    >
+      {children}
+    </MotionSection>
+  )
+}
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-              I&apos;m Dylan, an IT graduate focused on systems administration, networking, virtualization,
-              and practical troubleshooting. I enjoy building environments that feel real, useful, and
-              close to the kinds of problems teams solve every day.
-            </p>
+export default function DylanPortfolio() {
+  const [theme, setTheme] = useState('dark')
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#projects" className="button-primary">
-                View Projects
-              </a>
-              <a href="/resume.pdf" target="_blank" rel="noreferrer" className="button-secondary">
-                Resume
-              </a>
-              <a href="#contact" className="button-secondary">
-                Let&apos;s Connect
-              </a>
-            </div>
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+  }, [theme])
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
-              {highlights.map((item, index) => (
-                <div key={item.label} className="stat-card reveal-up" style={{ animationDelay: `${0.08 * (index + 1)}s` }}>
-                  <div className="text-3xl font-semibold text-white">{item.value}</div>
-                  <div className="mt-2 text-sm text-slate-400">{item.label}</div>
+  const isDark = theme === 'dark'
+
+  return (
+    <div className="site-shell">
+      <div className="grid-field" aria-hidden="true" />
+      <div className="ambient ambient-cyan" aria-hidden="true" />
+      <div className="ambient ambient-gold" aria-hidden="true" />
+
+      <MotionHeader
+        className="topbar"
+        initial={{ opacity: 0, y: -18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <a href="#top" className="brand-lockup" aria-label="Dylan Sokolov home">
+          <span className="brand-mark">DS</span>
+          <span>
+            <strong>Dylan Sokolov</strong>
+            <small>Networking, cybersecurity, and IT portfolio</small>
+          </span>
+        </a>
+        <nav className="topbar-nav" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={() => setTheme(isDark ? 'light' : 'dark')}
+          aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+        >
+          <Icon name={isDark ? 'sun' : 'moon'} />
+        </button>
+      </MotionHeader>
+
+      <main id="top" className="page">
+        <MotionSection className="hero-card" variants={containerVariants} initial="hidden" animate="show">
+          <div className="hero-layout">
+            <MotionDiv className="hero-copy" variants={itemVariants}>
+              <p className="eyebrow">Network engineering & cybersecurity path</p>
+              <h1>Building toward secure networks & resilient IT systems.</h1>
+              <p className="hero-text">
+                I&apos;m Dylan Sokolov, focused on network engineering & cybersecurity. I&apos;m especially
+                interested in routing, segmentation, defensive security, and lab-based troubleshooting,
+                while staying open to IT support, systems, infrastructure, and entry-level technical
+                roles where I can keep learning fast.
+              </p>
+
+              <div className="hero-actions">
+                <a href="#projects" className="button button-primary">
+                  View Work
+                  <Icon name="arrow" />
+                </a>
+                <a href="/resume.pdf" target="_blank" rel="noreferrer" className="button button-secondary">
+                  Resume
+                  <Icon name="external" />
+                </a>
+              </div>
+            </MotionDiv>
+
+            <MotionAside className="summary-panel" variants={itemVariants} aria-label="HomeLab console">
+              <div className="panel-topline">
+                <span>HomeLab Console</span>
+                <span className="status-dot">Open to roles</span>
+              </div>
+              <div className="security-checks" aria-label="Zero Trust policy checks">
+                <div className="security-checks-header">
+                  <span>Zero Trust Policy</span>
+                  <strong>Practice</strong>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <aside className="grid gap-6">
-            <div className="glass-panel glow-shell reveal-up relative overflow-hidden rounded-[2rem] p-5">
-              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cyan-300/15 to-transparent" />
-              <div className="lab-widget floating-hero min-h-[17rem] rounded-[1.5rem]">
-                <div className="lab-widget__glow" />
-                <div className="lab-widget__header">
-                  <div>
-                    <p className="lab-widget__eyebrow">Home Lab Widget</p>
-                    <h3 className="lab-widget__title">Infrastructure Snapshot</h3>
-                  </div>
-                  <span className="lab-widget__badge">Live Focus</span>
-                </div>
-
-                <div className="lab-widget__services">
-                  {labServices.map((service) => (
-                    <div key={service.name} className="lab-widget__service">
-                      <span className="lab-widget__dot" aria-hidden="true" />
+                <div className="security-checks-list">
+                  {zeroTrustPolicies.map((policy) => (
+                    <div key={policy.name} className="security-check">
+                      <span className="check-mark" aria-hidden="true" />
                       <div>
-                        <p className="lab-widget__service-name">{service.name}</p>
-                        <p className="lab-widget__service-status">{service.status}</p>
+                        <strong>{policy.name}</strong>
+                        <span>{policy.state}</span>
                       </div>
                     </div>
                   ))}
                 </div>
-
-                <div className="lab-widget__stats">
-                  {labStats.map((item) => (
-                    <div key={item.label} className="lab-widget__stat">
-                      <span className="lab-widget__stat-value">{item.value}</span>
-                      <span className="lab-widget__stat-label">{item.label}</span>
-                    </div>
+              </div>
+              <div className="terminal-widget" aria-label="Mock CLI activity">
+                <div className="terminal-widget-header">
+                  <span>CLI Monitor</span>
+                  <strong>Lab</strong>
+                </div>
+                <div className="terminal-lines">
+                  {terminalLines.map((line, index) => (
+                    <p key={`${line.prompt}-${line.text}`} style={{ '--line-index': index }}>
+                      <span>{line.prompt}</span>
+                      {line.text}
+                    </p>
                   ))}
                 </div>
+                <CyberVisual />
               </div>
-
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-                <div className="glow-shell rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4">
-                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">Current focus</p>
-                  <p className="mt-3 text-lg font-medium text-white">Support, systems, networking, and lab operations</p>
-                </div>
-
-                <div className="glow-shell rounded-[1.5rem] border border-white/10 bg-slate-950/55 p-4">
-                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">What stands out</p>
-                  <ul className="mt-3 space-y-3 text-sm leading-6 text-slate-300">
-                    {focusAreas.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-cyan-300" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </section>
-
-        <section id="about" className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7">
-            <p className="section-label">About Me</p>
-            <h2 className="mt-4 text-3xl font-semibold text-white">Focused on practical infrastructure work</h2>
-            <p className="mt-5 text-sm leading-8 text-slate-300 sm:text-base">
-              My portfolio is centered on the kind of work I want to keep doing professionally:
-              supporting systems, building environments, solving technical problems, and improving
-              reliability through careful setup and testing.
-            </p>
-            <p className="mt-4 text-sm leading-8 text-slate-300 sm:text-base">
-              I also hold the CompTIA Security+ certification, which strengthens the security
-              foundation behind my systems, networking, and support work.
-            </p>
-            <p className="mt-4 text-sm leading-8 text-slate-300 sm:text-base">
-              The goal of this site is to show technical depth clearly. Instead of listing buzzwords, it
-              points to real projects involving Windows Server, virtualization, networking, Linux tools,
-              and hands-on troubleshooting.
-            </p>
+            </MotionAside>
           </div>
 
-          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7">
-            <p className="section-label">Core Skills</p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {skills.map((skill) => (
-                <span key={skill} className="skill-pill">
-                  {skill}
+          <MotionDiv className="metric-grid" variants={containerVariants}>
+            {metrics.map((metric) => (
+              <MotionDiv className="metric" key={metric.label} variants={itemVariants}>
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </MotionDiv>
+            ))}
+          </MotionDiv>
+
+          <div className="signal-rail" aria-label="Career focus monitor">
+            <div className="heartbeat-monitor" aria-hidden="true">
+              <span className="monitor-label">System health</span>
+              <svg viewBox="0 0 260 44">
+                <path className="heartbeat-grid-line" d="M0 22H260" />
+                <path className="heartbeat-path" d="M0 22h40l10-15 15 30 14-22h30l9-11 16 27 12-17h114" />
+              </svg>
+            </div>
+            <div className="focus-strip">
+              {homeLabStatus.map((item) => (
+                <span key={item.service}>
+                  <strong>{item.service}</strong>
+                  <small>{item.state}</small>
                 </span>
               ))}
             </div>
           </div>
-        </section>
+        </MotionSection>
 
-        <section id="projects" className="mt-8">
-          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7 sm:p-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="section-label">Featured Work</p>
-                <h2 className="mt-3 text-3xl font-semibold text-white">Projects that show how I work</h2>
-              </div>
-              <p className="max-w-xl text-sm leading-7 text-slate-400">
-                Each project reflects a different angle of my experience, from application work to
-                infrastructure, support, and foundational computer science.
+        <RevealSection id="about" className="section-stack">
+          <div className="section-heading">
+            <p className="eyebrow">About</p>
+            <h2>Cybersecurity enthusiast with a practical IT foundation.</h2>
+          </div>
+
+          <div className="content-grid">
+            <MotionArticle className="info-card info-card-large" variants={itemVariants}>
+              <h3>Curious about how systems are protected</h3>
+              <p>
+                I&apos;m drawn to cybersecurity because it connects the parts of IT I enjoy most:
+                networks, identity, access control, logs, troubleshooting, and understanding how
+                systems behave when something goes wrong.
               </p>
-            </div>
+              <p>
+                My goal is to keep building toward network engineering and security work while staying
+                open to roles across IT support, systems, and infrastructure where I can strengthen
+                the fundamentals and contribute quickly.
+              </p>
+            </MotionArticle>
 
-            <div className="mt-8 grid gap-5 lg:grid-cols-2">
-              {projects.map((project, index) => (
-                <article key={project.title} className="project-card reveal-up">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
-                        Project {String(index + 1).padStart(2, '0')}
-                      </p>
-                      <h3 className="mt-3 text-2xl font-semibold text-white">{project.title}</h3>
-                    </div>
-                    <span className="rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs text-amber-100">
-                      {project.tag}
-                    </span>
-                  </div>
-
-                  <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">{project.description}</p>
-
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {project.stack.map((item) => (
-                      <span key={item} className="skill-pill">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-8">
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-cyan-200 transition hover:text-white"
-                    >
-                      Open project
-                      <span aria-hidden="true">-&gt;</span>
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="mt-8">
-          <div className="glass-panel glow-shell reveal-up rounded-[2rem] p-7 sm:p-8">
-            <p className="section-label">Next Step</p>
-            <div className="mt-4 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-              <div>
-                <h2 className="text-3xl font-semibold text-white">Let&apos;s connect</h2>
-                <p className="mt-4 max-w-2xl text-sm leading-8 text-slate-300 sm:text-base">
-                  I&apos;m actively looking for opportunities where I can contribute, keep learning, and
-                  grow in infrastructure, support, or systems-focused roles. If that aligns with what
-                  you&apos;re building, I&apos;d love to talk.
-                </p>
+            <MotionArticle className="info-card" variants={itemVariants}>
+              <h3>Core coverage</h3>
+              <div className="profile-detail-grid">
+                {profileDetails.map((item) => (
+                  <p key={item.label}>
+                    <strong>{item.label}</strong>
+                    <span>{item.value}</span>
+                  </p>
+                ))}
               </div>
-
-              <div className="flex flex-wrap gap-3 lg:justify-end">
-                <a
-                  href="https://github.com/pipped"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="button-primary"
-                >
-                  GitHub Profile
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/dylansokolov/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="button-secondary"
-                >
-                  LinkedIn
-                </a>
-                <a href="mailto:dylansokolov1@gmail.com" className="button-secondary">
-                  Contact Me
-                </a>
+              <div className="chip-grid">
+                {skills.map((skill) => (
+                  <span key={skill} className="chip">
+                    {skill}
+                  </span>
+                ))}
               </div>
-            </div>
+            </MotionArticle>
           </div>
-        </section>
+        </RevealSection>
+
+        <RevealSection className="section-stack">
+          <div className="section-heading">
+            <p className="eyebrow">Working style</p>
+            <h2>Clear notes, practical tests, dependable handoffs.</h2>
+          </div>
+
+          <MotionDiv className="ops-grid" variants={containerVariants}>
+            {operations.map((item) => (
+              <MotionArticle className="ops-card" key={item.title} variants={itemVariants}>
+                <Icon name="shield" />
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.detail}</p>
+                </div>
+              </MotionArticle>
+            ))}
+          </MotionDiv>
+
+        </RevealSection>
+
+        <RevealSection id="projects" className="section-stack">
+          <div className="section-heading section-heading-wide">
+            <p className="eyebrow">Featured work</p>
+            <h2>Projects with a clear technical signal.</h2>
+            <p>
+              A compact view of networking and infrastructure practice, security-minded lab work, AI
+              utility work, application building, and support documentation.
+            </p>
+          </div>
+
+          <MotionDiv className="projects-grid" variants={containerVariants}>
+            {projects.map((project, index) => (
+              <MotionArticle
+                className="project-card"
+                key={project.title}
+                variants={itemVariants}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.25 }}
+              >
+                <div className="project-meta">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <p>{project.tag}</p>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="mini-stack">
+                  {project.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+                <a href={project.link} target="_blank" rel="noreferrer" className="project-link">
+                  Open project
+                  <Icon name="external" />
+                </a>
+              </MotionArticle>
+            ))}
+          </MotionDiv>
+        </RevealSection>
+
+        <MotionSection
+          id="contact"
+          className="contact-panel"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          variants={containerVariants}
+        >
+          <MotionDiv variants={itemVariants}>
+            <p className="eyebrow">Connect with me</p>
+            <h2>Let&apos;s connect about networking, cybersecurity, or IT opportunities.</h2>
+            <p>
+              I&apos;m aiming toward network engineering and cybersecurity, and I&apos;m open to broader
+              IT roles where troubleshooting, documentation, and reliable systems thinking matter.
+            </p>
+          </MotionDiv>
+          <MotionDiv className="contact-actions" variants={itemVariants}>
+            <a href="https://github.com/pipped" target="_blank" rel="noreferrer" className="button button-primary">
+              GitHub
+              <Icon name="external" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/dylansokolov/"
+              target="_blank"
+              rel="noreferrer"
+              className="button button-secondary"
+            >
+              LinkedIn
+              <Icon name="external" />
+            </a>
+            <a href="mailto:dylansokolov1@gmail.com" className="button button-secondary">
+              Email
+              <Icon name="arrow" />
+            </a>
+          </MotionDiv>
+        </MotionSection>
       </main>
     </div>
   )

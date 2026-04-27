@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const projects = [
   {
@@ -37,9 +37,11 @@ const projects = [
 ]
 
 const skills = [
-  'CompTIA Security+',
   'System Administration',
   'Networking',
+  'AI / LLM Workflows',
+  'Claude',
+  'Codex',
   'Virtualization',
   'Windows Server',
   'Linux',
@@ -53,21 +55,21 @@ const skills = [
 ]
 
 const profileDetails = [
-  { label: 'Direction', value: 'Network engineering and cybersecurity' },
-  { label: 'Education', value: 'CSUN IT degree, May 15, 2026' },
-  { label: 'Open To', value: 'Networking, security, IT support, systems' },
+  { label: 'Infrastructure', value: 'Routing, segmentation, virtualization, and server roles' },
+  { label: 'Security', value: 'Identity, access control, logs, hardening, and troubleshooting' },
+  { label: 'Automation', value: 'AI-assisted workflows, documentation, scripting, and support utilities' },
 ]
 
 const metrics = [
   { value: '4', label: 'featured builds' },
-  { value: '13', label: 'core skills' },
-  { value: '24/7', label: 'lab mindset' },
+  { value: 'Security+', label: 'CompTIA certified' },
+  { value: 'May 2026', label: 'CSUN IT degree' },
 ]
 
 const operations = [
-  { title: 'Identity', detail: 'Active Directory, policy, and account management' },
-  { title: 'Network', detail: 'pfSense routing, segmentation, DNS, and firewall habits' },
-  { title: 'Systems', detail: 'Windows Server, Linux, Docker, and virtualized services' },
+  { title: 'Infrastructure', detail: 'Routing, segmentation, identity, and virtualized services' },
+  { title: 'AI workflow', detail: 'Practical LLM use with Claude and Codex for research, code, and automation' },
+  { title: 'Operations', detail: 'Clear documentation, troubleshooting habits, and dependable handoffs' },
 ]
 
 const zeroTrustPolicies = [
@@ -76,11 +78,11 @@ const zeroTrustPolicies = [
   { name: 'Watch activity', state: 'Logs and alerts' },
 ]
 
-const homeLabStatus = [
-  { service: 'pfSense', state: 'Routing' },
-  { service: 'AD / DNS', state: 'Identity' },
-  { service: 'Docker', state: 'Services' },
-  { service: 'Docs', state: 'Tracked' },
+const portfolioSignals = [
+  { service: 'Security+', state: 'Certified' },
+  { service: 'AI / LLMs', state: 'Proficient' },
+  { service: 'Systems', state: 'Practiced' },
+  { service: 'Support', state: 'Ready' },
 ]
 
 const terminalLines = [
@@ -88,6 +90,15 @@ const terminalLines = [
   { prompt: '$', text: 'ls' },
   { prompt: '>', text: 'pfSense  ad-dns  docker  logs' },
   { prompt: '$', text: 'open topology.map' },
+]
+
+const introLines = [
+  'ssh dylan@portfolio-node',
+  'handshake accepted :: aes256-gcm',
+  'scanning projects/ skills/ lab-notes/',
+  'elevating session profile...',
+  'render --target web',
+  "Dylan's Portfolio",
 ]
 
 const containerVariants = {
@@ -117,6 +128,42 @@ const MotionDiv = motion.div
 const MotionHeader = motion.header
 const MotionSection = motion.section
 const MotionArticle = motion.article
+
+function IntroTerminal() {
+  return (
+    <MotionDiv
+      className="intro-terminal-screen"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      aria-label="Portfolio loading animation"
+    >
+      <div className="intro-terminal" aria-hidden="true">
+        <div className="intro-terminal-bar">
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="intro-terminal-lines">
+          {introLines.map((line, index) => (
+            <p
+              key={line}
+              className={index === introLines.length - 1 ? 'intro-line intro-line-final' : 'intro-line'}
+              style={{
+                '--char-count': line.length,
+                '--type-width': `${line.length}ch`,
+                '--intro-delay': `${index * 0.46}s`,
+              }}
+            >
+              <span className="intro-prompt">{index === introLines.length - 1 ? '>' : '$'}</span>
+              <span className="intro-type">{line}</span>
+            </p>
+          ))}
+        </div>
+      </div>
+    </MotionDiv>
+  )
+}
 
 function Icon({ name }) {
   const paths = {
@@ -201,15 +248,49 @@ function RevealSection({ className, children, ...props }) {
 
 export default function DylanPortfolio() {
   const [theme, setTheme] = useState('dark')
+  const [introComplete, setIntroComplete] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
   }, [theme])
 
+  useEffect(() => {
+    if (introComplete) {
+      return undefined
+    }
+
+    const introTimer = window.setTimeout(() => {
+      setIntroComplete(true)
+    }, 6500)
+
+    return () => window.clearTimeout(introTimer)
+  }, [introComplete])
+
   const isDark = theme === 'dark'
 
   return (
-    <div className="site-shell">
+    <>
+      <AnimatePresence>{!introComplete && <IntroTerminal />}</AnimatePresence>
+      <MotionDiv
+        className="site-shell"
+        initial={{
+          opacity: introComplete ? 1 : 0,
+          y: introComplete ? 0 : 14,
+          filter: introComplete ? 'blur(0px)' : 'blur(10px)',
+        }}
+        animate={{
+          opacity: introComplete ? 1 : 0,
+          y: introComplete ? 0 : 14,
+          filter: introComplete ? 'blur(0px)' : 'blur(10px)',
+        }}
+        transition={{
+          delay: introComplete ? 0.22 : 0,
+          duration: 1.35,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+      >
       <div className="grid-field" aria-hidden="true" />
       <div className="ambient ambient-cyan" aria-hidden="true" />
       <div className="ambient ambient-gold" aria-hidden="true" />
@@ -224,7 +305,7 @@ export default function DylanPortfolio() {
           <span className="brand-mark">DS</span>
           <span>
             <strong>Dylan Sokolov</strong>
-            <small>Networking, cybersecurity, and IT portfolio</small>
+            <small>Cybersecurity, IT systems, and AI workflow portfolio</small>
           </span>
         </a>
         <nav className="topbar-nav" aria-label="Primary navigation">
@@ -317,16 +398,16 @@ export default function DylanPortfolio() {
             ))}
           </MotionDiv>
 
-          <div className="signal-rail" aria-label="Career focus monitor">
+          <div className="signal-rail" aria-label="Portfolio readiness monitor">
             <div className="heartbeat-monitor" aria-hidden="true">
-              <span className="monitor-label">System health</span>
+              <span className="monitor-label">Career signal</span>
               <svg viewBox="0 0 260 44">
                 <path className="heartbeat-grid-line" d="M0 22H260" />
                 <path className="heartbeat-path" d="M0 22h40l10-15 15 30 14-22h30l9-11 16 27 12-17h114" />
               </svg>
             </div>
             <div className="focus-strip">
-              {homeLabStatus.map((item) => (
+              {portfolioSignals.map((item) => (
                 <span key={item.service}>
                   <strong>{item.service}</strong>
                   <small>{item.state}</small>
@@ -358,7 +439,7 @@ export default function DylanPortfolio() {
             </MotionArticle>
 
             <MotionArticle className="info-card" variants={itemVariants}>
-              <h3>Core coverage</h3>
+              <h3>Technical range</h3>
               <div className="profile-detail-grid">
                 {profileDetails.map((item) => (
                   <p key={item.label}>
@@ -381,7 +462,7 @@ export default function DylanPortfolio() {
         <RevealSection className="section-stack">
           <div className="section-heading">
             <p className="eyebrow">Working style</p>
-            <h2>Clear notes, practical tests, dependable handoffs.</h2>
+            <h2>Clear notes, practical tests, useful automation.</h2>
           </div>
 
           <MotionDiv className="ops-grid" variants={containerVariants}>
@@ -403,8 +484,8 @@ export default function DylanPortfolio() {
             <p className="eyebrow">Featured work</p>
             <h2>Projects with a clear technical signal.</h2>
             <p>
-              A compact view of networking and infrastructure practice, security-minded lab work, AI
-              utility work, application building, and support documentation.
+              A compact view of infrastructure practice, security-minded lab work, AI utility work,
+              application building, and support documentation.
             </p>
           </div>
 
@@ -447,10 +528,10 @@ export default function DylanPortfolio() {
         >
           <MotionDiv variants={itemVariants}>
             <p className="eyebrow">Connect with me</p>
-            <h2>Let&apos;s connect about networking, cybersecurity, or IT opportunities.</h2>
+            <h2>Let&apos;s connect about technical roles where I can contribute and keep learning.</h2>
             <p>
-              I&apos;m aiming toward network engineering and cybersecurity, and I&apos;m open to broader
-              IT roles where troubleshooting, documentation, and reliable systems thinking matter.
+              I&apos;m interested in networking, cybersecurity, systems, IT support, and practical AI-enabled
+              workflows where troubleshooting, documentation, and reliable execution matter.
             </p>
           </MotionDiv>
           <MotionDiv className="contact-actions" variants={itemVariants}>
@@ -474,6 +555,7 @@ export default function DylanPortfolio() {
           </MotionDiv>
         </MotionSection>
       </main>
-    </div>
+      </MotionDiv>
+    </>
   )
 }

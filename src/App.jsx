@@ -92,6 +92,41 @@ const terminalLines = [
   { prompt: '$', text: 'open topology.map' },
 ]
 
+const topologyNodes = [
+  {
+    label: 'WAN',
+    detail: 'External network edge feeding the lab firewall.',
+    style: { '--node-x': '18%', '--node-y': '50%' },
+  },
+  {
+    label: 'pfSense',
+    detail: 'Firewall and routing layer for segmented lab traffic.',
+    style: { '--node-x': '50%', '--node-y': '50%' },
+  },
+  {
+    label: 'AD / DNS',
+    detail: 'Windows Server identity and name resolution practice.',
+    style: { '--node-x': '82%', '--node-y': '30%' },
+  },
+  {
+    label: 'LAN',
+    detail: 'Internal network segment for workstation and service testing.',
+    style: { '--node-x': '82%', '--node-y': '50%' },
+  },
+  {
+    label: 'Docker',
+    detail: 'Container services for dashboards, monitoring, and utilities.',
+    style: { '--node-x': '82%', '--node-y': '70%' },
+  },
+  {
+    label: 'Logs',
+    detail: 'System and service logs used for troubleshooting practice.',
+    style: { '--node-x': '50%', '--node-y': '78%' },
+  },
+]
+
+const topologyLegend = ['Edge', 'Firewall', 'Identity', 'Services', 'Logs']
+
 const introLines = [
   'ssh dylan@portfolio-node',
   'handshake accepted :: aes256-gcm',
@@ -184,7 +219,7 @@ function Icon({ name }) {
 function CyberVisual() {
   return (
     <div className="cyber-visual" aria-label="Animated home lab network topology">
-      <svg viewBox="0 0 420 240" role="img">
+      <svg viewBox="0 0 420 240" role="img" aria-hidden="true">
         <title>Home lab network topology</title>
         <rect className="topology-zone zone-edge" x="24" y="26" width="104" height="188" rx="8" />
         <rect className="topology-zone zone-lan" x="292" y="26" width="104" height="188" rx="8" />
@@ -226,6 +261,28 @@ function CyberVisual() {
         <circle className="packet packet-d" r="3.5" />
         <circle className="packet packet-e" r="3.5" />
       </svg>
+      <div className="topology-hotspots" aria-label="Home lab topology nodes">
+        {topologyNodes.map((node) => (
+          <button
+            key={node.label}
+            className="topology-hotspot"
+            type="button"
+            style={node.style}
+            aria-label={`${node.label}: ${node.detail}`}
+          >
+            <span className="hotspot-ring" aria-hidden="true" />
+            <span className="hotspot-tooltip">
+              <strong>{node.label}</strong>
+              <span>{node.detail}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <div className="topology-legend" aria-label="Topology legend">
+        {topologyLegend.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
       <span className="scan-line" aria-hidden="true" />
     </div>
   )

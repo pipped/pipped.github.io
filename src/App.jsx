@@ -79,10 +79,10 @@ const zeroTrustPolicies = [
 ]
 
 const portfolioSignals = [
+  { service: 'Networking', state: 'Online' },
   { service: 'Security+', state: 'Certified' },
-  { service: 'AI / LLMs', state: 'Proficient' },
-  { service: 'Systems', state: 'Practiced' },
-  { service: 'Support', state: 'Ready' },
+  { service: 'AD Lab', state: 'Running' },
+  { service: 'Docker', state: 'Active' },
 ]
 
 const terminalLines = [
@@ -460,7 +460,7 @@ export default function DylanPortfolio() {
 
           <div className="signal-rail" aria-label="Portfolio readiness monitor">
             <div className="heartbeat-monitor" aria-hidden="true">
-              <span className="monitor-label">Career signal</span>
+              <span className="monitor-label">System status</span>
               <svg viewBox="0 0 260 44">
                 <path className="heartbeat-grid-line" d="M0 22H260" />
                 <path className="heartbeat-path" d="M0 22h40l10-15 15 30 14-22h30l9-11 16 27 12-17h114" />
@@ -469,6 +469,7 @@ export default function DylanPortfolio() {
             <div className="focus-strip">
               {portfolioSignals.map((item) => (
                 <span key={item.service}>
+                  <span className="status-pip" aria-hidden="true" />
                   <strong>{item.service}</strong>
                   <small>{item.state}</small>
                 </span>

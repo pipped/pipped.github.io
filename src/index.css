@@ -1341,6 +1341,8 @@ p {
   background: var(--green);
   box-shadow: 0 0 0 0.22rem color-mix(in srgb, var(--green) 18%, transparent);
   margin: 0 auto 0.3rem;
+  align-self: center;
+  flex-shrink: 0;
   animation: monitorPulse 2.4s ease-in-out infinite;
 }
 

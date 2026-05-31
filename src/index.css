@@ -621,6 +621,21 @@ p {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  cursor: default;
+}
+
+.hero-card h1:hover {
+  animation: glitch 600ms steps(1) 1;
+}
+
+@keyframes glitch {
+  0%   { transform: none; filter: none; }
+  15%  { transform: skewX(-4deg) translateX(3px); filter: hue-rotate(90deg); }
+  30%  { transform: skewX(3deg) translateX(-2px); filter: hue-rotate(-60deg); }
+  45%  { transform: none; filter: none; }
+  60%  { transform: skewX(-2deg) translateX(2px); filter: hue-rotate(45deg); }
+  75%  { transform: none; filter: none; }
+  100% { transform: none; filter: none; }
 }
 
 .section-heading h2,
@@ -902,7 +917,8 @@ p {
 }
 
 .topology-hotspot:hover .hotspot-ring,
-.topology-hotspot:focus-visible .hotspot-ring {
+.topology-hotspot:focus-visible .hotspot-ring,
+.topology-hotspot[data-active="true"] .hotspot-ring {
   background: color-mix(in srgb, var(--accent-strong) 34%, transparent);
   box-shadow:
     0 0 0 0.48rem color-mix(in srgb, var(--accent) 16%, transparent),
@@ -911,7 +927,8 @@ p {
 }
 
 .topology-hotspot:hover .hotspot-tooltip,
-.topology-hotspot:focus-visible .hotspot-tooltip {
+.topology-hotspot:focus-visible .hotspot-tooltip,
+.topology-hotspot[data-active="true"] .hotspot-tooltip {
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -1332,6 +1349,10 @@ p {
   background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
   font-family: "IBM Plex Mono", monospace;
   text-align: center;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
 }
 
 .status-pip {
@@ -1345,6 +1366,20 @@ p {
   align-self: center;
   flex-shrink: 0;
   animation: monitorPulse 2.4s ease-in-out infinite;
+}
+
+.focus-strip > span:hover {
+  border-color: color-mix(in srgb, var(--green) 42%, var(--line));
+  background: color-mix(in srgb, var(--green) 8%, var(--surface-soft));
+  transform: translateY(-2px);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.focus-strip > span:hover .status-pip {
+  box-shadow: 0 0 0 0.32rem color-mix(in srgb, var(--green) 28%, transparent);
 }
 
 .focus-strip strong,
@@ -1530,6 +1565,7 @@ p {
   background: var(--surface);
   box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 12%, transparent);
   overflow: hidden;
+  cursor: pointer;
   transition:
     border-color 180ms ease,
     transform 180ms ease,

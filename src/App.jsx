@@ -269,6 +269,12 @@ function CyberVisual() {
             type="button"
             style={node.style}
             aria-label={`${node.label}: ${node.detail}`}
+            onClick={(e) => {
+              const btn = e.currentTarget
+              const isActive = btn.dataset.active === 'true'
+              document.querySelectorAll('.topology-hotspot').forEach(b => delete b.dataset.active)
+              if (!isActive) btn.dataset.active = 'true'
+            }}
           >
             <span className="hotspot-ring" aria-hidden="true" />
             <span className="hotspot-tooltip">

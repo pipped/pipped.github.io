@@ -63,7 +63,7 @@ const profileDetails = [
 const metrics = [
   { value: '4', label: 'featured builds' },
   { value: 'Security+', label: 'CompTIA certified' },
-  { value: 'May 2026', label: 'CSUN IT degree' },
+  { value: 'May 2026', label: 'B.S in CIT' },
 ]
 
 const operations = [

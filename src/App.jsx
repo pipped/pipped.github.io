@@ -352,6 +352,8 @@ export default function DylanPortfolio() {
         }}
       >
       <div className="grid-field" aria-hidden="true" />
+      <div className="ambient ambient-cyan" aria-hidden="true" />
+      <div className="ambient ambient-gold" aria-hidden="true" />
 
       <MotionHeader
         className="topbar"

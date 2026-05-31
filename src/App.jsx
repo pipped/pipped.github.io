@@ -306,7 +306,9 @@ function RevealSection({ className, children, ...props }) {
 export default function DylanPortfolio() {
   const [theme, setTheme] = useState('dark')
   const [introComplete, setIntroComplete] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () =>
+      sessionStorage.getItem('intro_seen') === '1' ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
 
   useEffect(() => {
@@ -319,6 +321,7 @@ export default function DylanPortfolio() {
     }
 
     const introTimer = window.setTimeout(() => {
+      sessionStorage.setItem('intro_seen', '1')
       setIntroComplete(true)
     }, 6500)
 
@@ -349,8 +352,6 @@ export default function DylanPortfolio() {
         }}
       >
       <div className="grid-field" aria-hidden="true" />
-      <div className="ambient ambient-cyan" aria-hidden="true" />
-      <div className="ambient ambient-gold" aria-hidden="true" />
 
       <MotionHeader
         className="topbar"

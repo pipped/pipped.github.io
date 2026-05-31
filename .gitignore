@@ -16,6 +16,9 @@ dist-ssr
 .claude/
 .codex/
 
+# Cloned repos
+CIT/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -8,7 +8,7 @@ const projects = [
     description:
       'NFC-based wardrobe management app connecting physical clothing items to a digital system with weather-aware outfit suggestions.',
     stack: ['NFC', 'Full Stack', 'APIs', 'Team Project'],
-    link: 'https://messyapp.org',
+    link: 'https://github.com/pipped/Messy-App',
   },
   {
     title: 'Home Lab',

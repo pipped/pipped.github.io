@@ -400,7 +400,7 @@ export default function DylanPortfolio() {
                 I&apos;m Dylan Sokolov, a CIT graduate with hands-on experience in secure full-stack
                 development, enterprise network configuration, and IT/security project management.
                 Strong foundation in authentication, network security, and risk management — seeking
-                an entry-level role or internship in Cybersecurity, AI Security, or Cloud Security Engineering.
+                an entry-level role in Cybersecurity, AI Security, or Cloud Security Engineering.
               </p>
 
               <div className="hero-actions">

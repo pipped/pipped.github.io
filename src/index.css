@@ -263,6 +263,7 @@ button {
 .intro-line-final .intro-type {
   box-sizing: content-box;
   width: 0;
+  padding-right: 1px;
   max-width: min(17ch, 100%);
   white-space: nowrap;
   word-break: keep-all;

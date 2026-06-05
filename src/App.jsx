@@ -80,7 +80,6 @@ const zeroTrustPolicies = [
 
 const portfolioSignals = [
   { service: 'Networking', state: 'Online' },
-  { service: 'Security+', state: 'Certified' },
   { service: 'AD Lab', state: 'Running' },
   { service: 'Docker', state: 'Active' },
 ]

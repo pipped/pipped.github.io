@@ -251,7 +251,7 @@ button {
 .intro-line-final {
   margin-top: clamp(1.7rem, 5.5vw, 3.4rem);
   color: #fff;
-  font-size: clamp(1.9rem, 6.2vw, 4.35rem);
+  font-size: clamp(1.4rem, 6.2vw, 4.35rem);
   font-weight: 600;
   line-height: 1.12;
 }

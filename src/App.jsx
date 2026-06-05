@@ -371,7 +371,7 @@ export default function DylanPortfolio() {
           <span className="brand-mark">DS</span>
           <span>
             <strong>Dylan Sokolov</strong>
-            <small>Cybersecurity, IT systems, and AI workflow portfolio</small>
+            <small>Cybersecurity, AI Security &amp; Cloud Infrastructure</small>
           </span>
         </a>
         <nav className="topbar-nav" aria-label="Primary navigation">
@@ -394,13 +394,13 @@ export default function DylanPortfolio() {
         <MotionSection className="hero-card" variants={containerVariants} initial="hidden" animate="show">
           <div className="hero-layout">
             <MotionDiv className="hero-copy" variants={itemVariants}>
-              <p className="eyebrow">Network engineering & cybersecurity path</p>
-              <h1>Building toward secure networks & resilient IT systems.</h1>
+              <p className="eyebrow">Cybersecurity · AI Security · Cloud Infrastructure</p>
+              <h1>Building secure systems at the intersection of AI and cloud.</h1>
               <p className="hero-text">
-                I&apos;m Dylan Sokolov, focused on network engineering & cybersecurity. I&apos;m especially
-                interested in routing, segmentation, defensive security, and lab-based troubleshooting,
-                while staying open to IT support, systems, infrastructure, and entry-level technical
-                roles where I can keep learning fast.
+                I&apos;m Dylan Sokolov, a CIT graduate with hands-on experience in secure full-stack
+                development, enterprise network configuration, and IT/security project management.
+                Strong foundation in authentication, network security, and risk management — seeking
+                an entry-level role or internship in Cybersecurity, AI Security, or Cloud Security Engineering.
               </p>
 
               <div className="hero-actions">

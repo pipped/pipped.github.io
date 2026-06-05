@@ -261,6 +261,7 @@ button {
 }
 
 .intro-line-final .intro-type {
+  box-sizing: content-box;
   width: 0;
   max-width: min(17ch, 100%);
   white-space: nowrap;

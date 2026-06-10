@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { Typewriter } from './Typewriter.jsx'
+import { AnimatedText } from './components/ui/animated-text.tsx'
 
 const projects = [
   {
@@ -321,6 +323,37 @@ export default function DylanPortfolio() {
   }, [theme])
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined
+    }
+
+    let frame = 0
+    const root = document.documentElement
+    const onPointerMove = (event) => {
+      if (frame) {
+        return
+      }
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        root.style.setProperty('--spot-x', event.clientX.toFixed(1))
+        root.style.setProperty('--spot-y', event.clientY.toFixed(1))
+        root.style.setProperty('--spot-xp', (event.clientX / window.innerWidth).toFixed(3))
+      })
+    }
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      if (frame) {
+        window.cancelAnimationFrame(frame)
+      }
+    }
+  }, [])
+
+  const contactRef = useRef(null)
+  const contactInView = useInView(contactRef, { once: false, amount: 0.3 })
+
+  useEffect(() => {
     if (introComplete) {
       return undefined
     }
@@ -394,7 +427,20 @@ export default function DylanPortfolio() {
           <div className="hero-layout">
             <MotionDiv className="hero-copy" variants={itemVariants}>
               <p className="eyebrow">Cybersecurity · AI Security · Cloud Infrastructure</p>
-              <h1>Building secure systems at the intersection of AI and cloud.</h1>
+              <h1>
+                {"Resumes shouldn't be boring,"}
+                <br />
+                {"it should be an"}
+                <br />
+                <Typewriter
+                  text={['experience ✨', 'showcase 🎯', 'representation 🪞']}
+                  speed={100}
+                  waitTime={2000}
+                  deleteSpeed={60}
+                  cursorChar={'_'}
+                  className="hero-type"
+                />
+              </h1>
               <p className="hero-text">
                 I&apos;m Dylan Sokolov, a CIT graduate with hands-on experience in secure full-stack
                 development, enterprise network configuration, and IT/security project management.
@@ -564,6 +610,7 @@ export default function DylanPortfolio() {
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.25 }}
               >
+                <span className="card-spotlight" aria-hidden="true" />
                 <div className="project-meta">
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   <p>{project.tag}</p>
@@ -586,6 +633,7 @@ export default function DylanPortfolio() {
 
         <MotionSection
           id="contact"
+          ref={contactRef}
           className="contact-panel"
           initial="hidden"
           whileInView="show"
@@ -594,7 +642,18 @@ export default function DylanPortfolio() {
         >
           <MotionDiv variants={itemVariants}>
             <p className="eyebrow">Connect with me</p>
-            <h2>Let&apos;s connect about technical roles where I can contribute and keep learning.</h2>
+            <AnimatedText
+              text="Lets build together."
+              as="h2"
+              replay={contactInView}
+              duration={0.025}
+              delay={0.018}
+              className="items-start mt-3"
+              textClassName="contact-animated-heading"
+              underlineGradient="from-violet-400 via-purple-500 to-violet-400"
+              underlineHeight="h-[3px]"
+              underlineOffset="-bottom-3"
+            />
             <p>
               I&apos;m interested in networking, cybersecurity, systems, IT support, and practical AI-enabled
               workflows where troubleshooting, documentation, and reliable execution matter.

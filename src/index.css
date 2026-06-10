@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
 
 :root {
   color-scheme: dark;
@@ -617,13 +619,21 @@ p {
 }
 
 .hero-card h1 {
-  max-width: 14ch;
-  font-size: clamp(2.9rem, 6.5vw, 5.7rem);
+  max-width: 100%;
+  font-size: clamp(2.2rem, 4.8vw, 4rem);
+  line-height: 1.1;
   background: linear-gradient(135deg, var(--text) 40%, var(--accent-strong) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   cursor: default;
+}
+
+/* Typewriter words in the hero — purple accent that matches the site theme,
+   overriding the h1 gradient text-clip so the cycling words stay visible. */
+.hero-card h1 .hero-type {
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
 }
 
 .hero-card h1:hover {
@@ -1613,6 +1623,69 @@ p {
   z-index: 1;
 }
 
+/* Cursor-tracking spotlight border, ported from the GlowCard component
+   and tuned to the violet accent. Driven by --spot-x / --spot-y / --spot-xp
+   (set on :root from a global pointermove listener in App.jsx). */
+.projects-grid {
+  --spot-base: 248;
+  --spot-spread: 92;
+  --spot-border: 1.5px;
+  --spot-size: 200px;
+  --spot-hue: calc(var(--spot-base) + (var(--spot-xp, 0) * var(--spot-spread)));
+}
+
+.card-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.card-spotlight::before,
+.card-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--spot-border) solid transparent;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Colored glow that follows the cursor along the border. */
+.card-spotlight::before {
+  background-image: radial-gradient(
+    var(--spot-size) var(--spot-size) at
+    calc(var(--spot-x, -9999) * 1px)
+    calc(var(--spot-y, -9999) * 1px),
+    hsl(var(--spot-hue, 248) 96% 64% / 0.95),
+    transparent 72%
+  );
+  filter: brightness(1.35);
+}
+
+/* Bright white core for a crisp highlight where the cursor is closest. */
+.card-spotlight::after {
+  background-image: radial-gradient(
+    calc(var(--spot-size) * 0.55) calc(var(--spot-size) * 0.55) at
+    calc(var(--spot-x, -9999) * 1px)
+    calc(var(--spot-y, -9999) * 1px),
+    hsl(0 0% 100% / 0.9),
+    transparent 70%
+  );
+}
+
 .project-card:hover,
 .project-card:focus-within {
   border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
@@ -1992,7 +2065,8 @@ p {
   }
 
   .hero-card h1 {
-    font-size: clamp(2.45rem, 13vw, 4.1rem);
+    max-width: 100%;
+    font-size: clamp(1.9rem, 9vw, 3rem);
   }
 
   .metric-grid {
@@ -2011,4 +2085,13 @@ p {
   .project-card {
     min-height: 19rem;
   }
+}
+
+/* AnimatedText heading in the contact section — matches .contact-panel h2 styles */
+.contact-animated-heading {
+  font-size: clamp(2rem, 4.4vw, 3.35rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  text-align: left;
 }

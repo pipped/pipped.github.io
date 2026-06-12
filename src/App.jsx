@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion, useInView, useScroll, useSpring } from 'framer-motion'
 import { Typewriter } from './Typewriter.jsx'
 import { AnimatedText } from './components/ui/animated-text.tsx'
 
@@ -201,6 +201,13 @@ function IntroTerminal() {
   )
 }
 
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.4 })
+
+  return <MotionDiv className="scroll-progress" style={{ scaleX }} aria-hidden="true" />
+}
+
 function Icon({ name }) {
   const paths = {
     moon: 'M21 12.8A8.5 8.5 0 1 1 11.2 3 6.6 6.6 0 0 0 21 12.8Z',
@@ -371,6 +378,7 @@ export default function DylanPortfolio() {
   return (
     <>
       <AnimatePresence>{!introComplete && <IntroTerminal />}</AnimatePresence>
+      {introComplete && <ScrollProgress />}
       <MotionDiv
         className="site-shell"
         initial={{
@@ -679,6 +687,12 @@ export default function DylanPortfolio() {
             </a>
           </MotionDiv>
         </MotionSection>
+
+        <footer className="site-footer" aria-label="Site footer">
+          <span className="footer-id">DS // portfolio-node</span>
+          <span className="status-dot">Systems nominal</span>
+          <span className="footer-meta">© 2026 Dylan Sokolov</span>
+        </footer>
       </main>
       </MotionDiv>
     </>

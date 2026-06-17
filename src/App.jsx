@@ -438,10 +438,10 @@ export default function DylanPortfolio() {
               <h1>
                 {"Resumes shouldn't be boring,"}
                 <br />
-                {"it should be an"}
+                {"it should be"}
                 <br />
                 <Typewriter
-                  text={['experience ✨', 'showcase 🎯', 'representation 🪞']}
+                  text={['an experience ✨', 'a showcase 🎯', 'a representation 🪞']}
                   speed={100}
                   waitTime={2000}
                   deleteSpeed={60}

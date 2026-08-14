@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
+
+const MotionSpan = motion.span
 
 const defaultCursorVariants = {
   initial: { opacity: 0 },
@@ -33,13 +35,14 @@ export function Typewriter({
   const [isDeleting, setIsDeleting] = useState(false)
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
 
-  const texts = Array.isArray(text) ? text : [text]
+  const texts = useMemo(() => (Array.isArray(text) ? text : [text]), [text])
+  const currentChars = useMemo(
+    () => Array.from(texts[currentTextIndex]),
+    [texts, currentTextIndex],
+  )
 
   useEffect(() => {
     let timeout
-
-    const currentText = texts[currentTextIndex]
-    const currentChars = Array.from(currentText)
 
     const startTyping = () => {
       if (isDeleting) {
@@ -50,7 +53,6 @@ export function Typewriter({
           }
           setCurrentTextIndex((prev) => (prev + 1) % texts.length)
           setCurrentIndex(0)
-          timeout = setTimeout(() => {}, waitTime)
         } else {
           timeout = setTimeout(() => {
             setDisplayText((prev) => Array.from(prev).slice(0, -1).join(''))
@@ -79,6 +81,7 @@ export function Typewriter({
     return () => clearTimeout(timeout)
   }, [
     currentIndex,
+    currentChars,
     displayText,
     isDeleting,
     speed,
@@ -91,14 +94,13 @@ export function Typewriter({
   ])
 
   const cursorHidden =
-    hideCursorOnType &&
-    (currentIndex < Array.from(texts[currentTextIndex]).length || isDeleting)
+    hideCursorOnType && (currentIndex < currentChars.length || isDeleting)
 
   return (
     <span className={className} style={{ whiteSpace: 'pre-wrap' }}>
       <span>{displayText}</span>
       {showCursor && !cursorHidden && (
-        <motion.span
+        <MotionSpan
           variants={cursorAnimationVariants}
           className={cursorClassName}
           style={{ marginLeft: '0.08em' }}
@@ -106,7 +108,7 @@ export function Typewriter({
           animate="animate"
         >
           {cursorChar}
-        </motion.span>
+        </MotionSpan>
       )}
     </span>
   )

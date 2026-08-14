@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/utilities" layer(utilities);
 
@@ -950,31 +949,6 @@ p {
   outline-offset: 0.2rem;
 }
 
-.topology-legend {
-  position: absolute;
-  right: 0.65rem;
-  bottom: 0.6rem;
-  left: 0.65rem;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  pointer-events: none;
-}
-
-.topology-legend span {
-  padding: 0.28rem 0.42rem;
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--bg) 58%, transparent);
-  color: var(--muted);
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .topology-zone {
   fill: color-mix(in srgb, var(--surface-soft) 58%, transparent);
   stroke: var(--line);
@@ -1262,158 +1236,6 @@ p {
   font-size: 0.88rem;
 }
 
-.signal-rail {
-  position: relative;
-  margin-top: 1rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--bg) 92%, transparent), transparent 12%, transparent 88%, color-mix(in srgb, var(--bg) 92%, transparent)),
-    color-mix(in srgb, var(--bg) 34%, var(--surface-strong));
-  overflow: hidden;
-}
-
-.heartbeat-monitor {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.75rem;
-  align-items: center;
-  padding: 0.7rem 0.8rem 0;
-}
-
-.monitor-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: var(--muted);
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.monitor-label::before {
-  content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: var(--green);
-  box-shadow: 0 0 0 0.32rem color-mix(in srgb, var(--green) 16%, transparent);
-  animation: monitorPulse 1.6s ease-in-out infinite;
-}
-
-.heartbeat-monitor svg {
-  width: 100%;
-  height: 2.75rem;
-  color: var(--green);
-}
-
-.heartbeat-grid-line,
-.heartbeat-path {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.heartbeat-grid-line {
-  stroke: var(--line);
-  stroke-width: 1;
-}
-
-.heartbeat-path {
-  stroke: currentColor;
-  stroke-width: 3;
-  stroke-dasharray: 360;
-  stroke-dashoffset: 360;
-  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--green) 32%, transparent));
-  animation: heartbeatTrace 2.4s ease-in-out infinite;
-}
-
-.signal-rail::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
-  transform: translateX(-100%);
-  animation: railSweep 5.8s ease-in-out infinite;
-}
-
-.focus-strip {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
-  padding: 0.65rem;
-}
-
-.focus-strip > span {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 3rem;
-  padding: 0.5rem 0.65rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
-  font-family: "IBM Plex Mono", monospace;
-  text-align: center;
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    transform 180ms ease;
-}
-
-.status-pip {
-  display: block;
-  width: 0.42rem;
-  height: 0.42rem;
-  border-radius: 999px;
-  background: var(--green);
-  box-shadow: 0 0 0 0.22rem color-mix(in srgb, var(--green) 18%, transparent);
-  margin: 0 auto 0.3rem;
-  align-self: center;
-  flex-shrink: 0;
-  animation: monitorPulse 2.4s ease-in-out infinite;
-}
-
-.focus-strip > span:hover {
-  border-color: color-mix(in srgb, var(--green) 42%, var(--line));
-  background: color-mix(in srgb, var(--green) 8%, var(--surface-soft));
-  transform: translateY(-2px);
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    transform 180ms ease;
-}
-
-.focus-strip > span:hover .status-pip {
-  box-shadow: 0 0 0 0.32rem color-mix(in srgb, var(--green) 28%, transparent);
-}
-
-.focus-strip strong,
-.focus-strip small {
-  display: block;
-}
-
-.focus-strip strong {
-  color: var(--text);
-  font-size: 0.78rem;
-  font-weight: 600;
-  line-height: 1.15;
-}
-
-.focus-strip small {
-  margin-top: 0.18rem;
-  color: var(--muted);
-  font-size: 0.68rem;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
 /* Scroll progress — HUD trace pinned above the topbar, driven by framer-motion scaleX */
 .scroll-progress {
   position: fixed;
@@ -1513,7 +1335,22 @@ p {
 }
 
 .info-card-large {
+  position: relative;
   min-height: 17rem;
+}
+
+.info-card-glyph {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 0;
+  width: 9rem;
+  height: 9rem;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.6;
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .profile-detail-grid {
@@ -1944,54 +1781,6 @@ p {
   }
 }
 
-@keyframes railSweep {
-  0%,
-  30% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-
-  52% {
-    opacity: 1;
-  }
-
-  76%,
-  100% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-@keyframes heartbeatTrace {
-  0% {
-    stroke-dashoffset: 360;
-    opacity: 0.35;
-  }
-
-  18% {
-    opacity: 1;
-  }
-
-  58%,
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.92;
-  }
-}
-
-@keyframes monitorPulse {
-  0%,
-  100% {
-    opacity: 0.65;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.28);
-  }
-}
-
 @keyframes terminalLine {
   0%,
   2% {
@@ -2116,10 +1905,6 @@ p {
 
   .metric-grid {
     grid-template-columns: 1fr;
-  }
-
-  .focus-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .button,

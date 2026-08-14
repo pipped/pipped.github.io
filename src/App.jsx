@@ -39,33 +39,36 @@ const projects = [
 ]
 
 const skills = [
-  'System Administration',
-  'Networking',
-  'AI / LLM Workflows',
-  'Claude',
-  'Codex',
-  'Virtualization',
-  'Windows Server',
-  'Linux',
-  'Active Directory',
-  'DNS',
+  'AWS',
   'Docker',
+  'Linux',
+  'VPNs',
+  'Firewalls',
+  'VLANs',
+  'Risk Management',
+  'JavaScript',
+  'Node.js',
+  'MongoDB',
+  'SQL',
+  'REST APIs',
+  'Git',
+  'Bash',
+  'Windows Server',
+  'Active Directory',
   'pfSense',
-  'Hyper-V',
-  'VMware',
-  'Troubleshooting',
+  'AI / LLM Workflows',
 ]
 
 const profileDetails = [
-  { label: 'Infrastructure', value: 'Routing, segmentation, virtualization, and server roles' },
-  { label: 'Security', value: 'Identity, access control, logs, hardening, and troubleshooting' },
-  { label: 'Automation', value: 'AI-assisted workflows, documentation, scripting, and support utilities' },
+  { label: 'Infrastructure', value: 'VPNs, firewalls, VLAN segmentation, and virtualized server roles' },
+  { label: 'Security', value: 'Authentication, risk management, secure coding, and endpoint hardening' },
+  { label: 'Automation', value: 'AI-assisted workflows, Bash scripting, documentation, and support utilities' },
 ]
 
 const metrics = [
   { value: '4', label: 'featured builds' },
   { value: 'Security+', label: 'CompTIA certified' },
-  { value: 'May 2026', label: 'B.S in CIT' },
+  { value: 'May 2026', label: 'B.S. Computer Science' },
 ]
 
 const operations = [
@@ -78,12 +81,6 @@ const zeroTrustPolicies = [
   { name: 'Verify identity', state: 'MFA mindset' },
   { name: 'Limit access', state: 'Least privilege' },
   { name: 'Watch activity', state: 'Logs and alerts' },
-]
-
-const portfolioSignals = [
-  { service: 'Networking', state: 'Online' },
-  { service: 'AD Lab', state: 'Running' },
-  { service: 'Docker', state: 'Active' },
 ]
 
 const terminalLines = [
@@ -126,7 +123,7 @@ const topologyNodes = [
   },
 ]
 
-const topologyLegend = ['Edge', 'Firewall', 'Identity', 'Services', 'Logs']
+const heroPhrases = ['an experience ✨', 'a showcase 🎯', 'a representation 🪞']
 
 const introLines = [
   'ssh dylan@portfolio-node',
@@ -157,6 +154,26 @@ const itemVariants = {
       ease: [0.22, 1, 0.36, 1],
     },
   },
+}
+
+const prefersReducedMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// sessionStorage throws on access in Safari private mode and with blocked cookies.
+const readIntroSeen = () => {
+  try {
+    return sessionStorage.getItem('intro_seen') === '1'
+  } catch {
+    return false
+  }
+}
+
+const markIntroSeen = () => {
+  try {
+    sessionStorage.setItem('intro_seen', '1')
+  } catch {
+    /* non-fatal: the intro just replays next visit */
+  }
 }
 
 const MotionAside = motion.aside
@@ -208,23 +225,25 @@ function ScrollProgress() {
   return <MotionDiv className="scroll-progress" style={{ scaleX }} aria-hidden="true" />
 }
 
-function Icon({ name }) {
-  const paths = {
-    moon: 'M21 12.8A8.5 8.5 0 1 1 11.2 3 6.6 6.6 0 0 0 21 12.8Z',
-    sun: 'M12 4V2m0 20v-2m8-8h2M2 12h2m14.95 6.95 1.41 1.41M3.64 3.64l1.41 1.41m13.9-1.41-1.41 1.41M3.64 20.36l1.41-1.41M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
-    arrow: 'M5 12h14m-6-6 6 6-6 6',
-    external: 'M7 17 17 7m0 0H9m8 0v8',
-    shield: 'M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z',
-  }
+const iconPaths = {
+  moon: 'M21 12.8A8.5 8.5 0 1 1 11.2 3 6.6 6.6 0 0 0 21 12.8Z',
+  sun: 'M12 4V2m0 20v-2m8-8h2M2 12h2m14.95 6.95 1.41 1.41M3.64 3.64l1.41 1.41m13.9-1.41-1.41 1.41M3.64 20.36l1.41-1.41M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
+  arrow: 'M5 12h14m-6-6 6 6-6 6',
+  external: 'M7 17 17 7m0 0H9m8 0v8',
+  shield: 'M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z',
+}
 
+function Icon({ name, className = 'icon' }) {
   return (
-    <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d={paths[name]} />
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
+      <path d={iconPaths[name]} />
     </svg>
   )
 }
 
 function CyberVisual() {
+  const [activeNode, setActiveNode] = useState(null)
+
   return (
     <div className="cyber-visual" aria-label="Animated home lab network topology">
       <svg viewBox="0 0 420 240" role="img" aria-hidden="true">
@@ -276,13 +295,10 @@ function CyberVisual() {
             className="topology-hotspot"
             type="button"
             style={node.style}
+            data-active={activeNode === node.label ? 'true' : undefined}
             aria-label={`${node.label}: ${node.detail}`}
-            onClick={(e) => {
-              const btn = e.currentTarget
-              const isActive = btn.dataset.active === 'true'
-              document.querySelectorAll('.topology-hotspot').forEach(b => delete b.dataset.active)
-              if (!isActive) btn.dataset.active = 'true'
-            }}
+            aria-pressed={activeNode === node.label}
+            onClick={() => setActiveNode((prev) => (prev === node.label ? null : node.label))}
           >
             <span className="hotspot-ring" aria-hidden="true" />
             <span className="hotspot-tooltip">
@@ -290,11 +306,6 @@ function CyberVisual() {
               <span>{node.detail}</span>
             </span>
           </button>
-        ))}
-      </div>
-      <div className="topology-legend" aria-label="Topology legend">
-        {topologyLegend.map((item) => (
-          <span key={item}>{item}</span>
         ))}
       </div>
       <span className="scan-line" aria-hidden="true" />
@@ -320,9 +331,7 @@ function RevealSection({ className, children, ...props }) {
 export default function DylanPortfolio() {
   const [theme, setTheme] = useState('dark')
   const [introComplete, setIntroComplete] = useState(
-    () =>
-      sessionStorage.getItem('intro_seen') === '1' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => readIntroSeen() || prefersReducedMotion(),
   )
 
   useEffect(() => {
@@ -330,7 +339,7 @@ export default function DylanPortfolio() {
   }, [theme])
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (prefersReducedMotion()) {
       return undefined
     }
 
@@ -366,7 +375,7 @@ export default function DylanPortfolio() {
     }
 
     const introTimer = window.setTimeout(() => {
-      sessionStorage.setItem('intro_seen', '1')
+      markIntroSeen()
       setIntroComplete(true)
     }, 6500)
 
@@ -441,7 +450,7 @@ export default function DylanPortfolio() {
                 {"it should be"}
                 <br />
                 <Typewriter
-                  text={['an experience ✨', 'a showcase 🎯', 'a representation 🪞']}
+                  text={heroPhrases}
                   speed={100}
                   waitTime={2000}
                   deleteSpeed={60}
@@ -452,8 +461,9 @@ export default function DylanPortfolio() {
               <p className="hero-text">
                 I&apos;m Dylan Sokolov, a CIT graduate with hands-on experience in secure full-stack
                 development, enterprise network configuration, and IT/security project management.
-                Strong foundation in authentication, network security, and risk management — seeking
-                an entry-level role in Cybersecurity, AI Security, or Cloud Security Engineering.
+                Strong foundation in authentication, network security, and risk management. Seeking
+                entry level roles as a Cybersecurity Analyst, in AI Security, and in Cloud Security
+                Engineering.
               </p>
 
               <div className="hero-actions">
@@ -492,7 +502,7 @@ export default function DylanPortfolio() {
               </div>
               <div className="terminal-widget" aria-label="Mock CLI activity">
                 <div className="terminal-widget-header">
-                  <span>CLI Monitor</span>
+                  <span>HomeLab</span>
                   <strong>Lab</strong>
                 </div>
                 <div className="terminal-lines">
@@ -517,24 +527,6 @@ export default function DylanPortfolio() {
             ))}
           </MotionDiv>
 
-          <div className="signal-rail" aria-label="Portfolio readiness monitor">
-            <div className="heartbeat-monitor" aria-hidden="true">
-              <span className="monitor-label">System status</span>
-              <svg viewBox="0 0 260 44">
-                <path className="heartbeat-grid-line" d="M0 22H260" />
-                <path className="heartbeat-path" d="M0 22h40l10-15 15 30 14-22h30l9-11 16 27 12-17h114" />
-              </svg>
-            </div>
-            <div className="focus-strip">
-              {portfolioSignals.map((item) => (
-                <span key={item.service}>
-                  <span className="status-pip" aria-hidden="true" />
-                  <strong>{item.service}</strong>
-                  <small>{item.state}</small>
-                </span>
-              ))}
-            </div>
-          </div>
         </MotionSection>
 
         <RevealSection id="about" className="section-stack">
@@ -556,6 +548,7 @@ export default function DylanPortfolio() {
                 open to roles across IT support, systems, and infrastructure where I can strengthen
                 the fundamentals and contribute quickly.
               </p>
+              <Icon name="shield" className="info-card-glyph" />
             </MotionArticle>
 
             <MotionArticle className="info-card" variants={itemVariants}>
@@ -651,7 +644,7 @@ export default function DylanPortfolio() {
           <MotionDiv variants={itemVariants}>
             <p className="eyebrow">Connect with me</p>
             <AnimatedText
-              text="Lets build together."
+              text="Let's build together."
               as="h2"
               replay={contactInView}
               duration={0.025}

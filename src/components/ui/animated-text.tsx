@@ -16,6 +16,27 @@ interface AnimatedTextProps extends React.HTMLAttributes<HTMLDivElement> {
   underlineOffset?: string
 }
 
+const child: Variants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      damping: 12,
+      stiffness: 200
+    }
+  },
+  hidden: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      type: "spring",
+      damping: 12,
+      stiffness: 200
+    }
+  }
+}
+
 const AnimatedText = React.forwardRef<HTMLDivElement, AnimatedTextProps>(
   ({
     text,
@@ -31,57 +52,42 @@ const AnimatedText = React.forwardRef<HTMLDivElement, AnimatedTextProps>(
     underlineOffset = "-bottom-2",
     ...props
   }, ref) => {
-    const letters = Array.from(text)
+    const letters = React.useMemo(() => Array.from(text), [text])
 
-    const container: Variants = {
-      hidden: {
-        opacity: 0
-      },
-      visible: (i: number = 1) => ({
-        opacity: 1,
-        transition: {
-          staggerChildren: duration,
-          delayChildren: i * delay
-        }
-      })
-    }
+    const container: Variants = React.useMemo(
+      () => ({
+        hidden: {
+          opacity: 0
+        },
+        visible: (i: number = 1) => ({
+          opacity: 1,
+          transition: {
+            staggerChildren: duration,
+            delayChildren: i * delay
+          }
+        })
+      }),
+      [duration, delay]
+    )
 
-    const child: Variants = {
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          type: "spring",
-          damping: 12,
-          stiffness: 200
+    const lineVariants: Variants = React.useMemo(
+      () => ({
+        hidden: {
+          width: "0%",
+          left: "50%"
+        },
+        visible: {
+          width: "100%",
+          left: "0%",
+          transition: {
+            delay: letters.length * delay,
+            duration: 0.8,
+            ease: "easeOut"
+          }
         }
-      },
-      hidden: {
-        opacity: 0,
-        y: 20,
-        transition: {
-          type: "spring",
-          damping: 12,
-          stiffness: 200
-        }
-      }
-    }
-
-    const lineVariants: Variants = {
-      hidden: {
-        width: "0%",
-        left: "50%"
-      },
-      visible: {
-        width: "100%",
-        left: "0%",
-        transition: {
-          delay: letters.length * delay,
-          duration: 0.8,
-          ease: "easeOut"
-        }
-      }
-    }
+      }),
+      [letters.length, delay]
+    )
 
     return (
       <div

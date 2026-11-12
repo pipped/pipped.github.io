@@ -1237,19 +1237,6 @@ p {
   font-size: 0.88rem;
 }
 
-/* Scroll progress — HUD trace pinned above the topbar, driven by framer-motion scaleX */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 60;
-  height: 3px;
-  transform-origin: left;
-  background: linear-gradient(90deg, var(--accent), var(--hud-cyan) 55%, var(--warm));
-  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 45%, transparent);
-}
-
 /* Footer — closing status line */
 .site-footer {
   display: flex;

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView, useScroll, useSpring } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { Typewriter } from './Typewriter.jsx'
 import { AnimatedText } from './components/ui/animated-text.tsx'
 
@@ -68,7 +68,7 @@ const profileDetails = [
 const metrics = [
   { value: '4', label: 'featured builds' },
   { value: 'Security+', label: 'CompTIA certified' },
-  { value: 'May 2026', label: 'B.S. Computer Science' },
+  { value: 'May 2026', label: 'B.S. CIT (Computer Information Technology)' },
 ]
 
 const operations = [
@@ -217,13 +217,6 @@ function IntroTerminal() {
       </div>
     </MotionDiv>
   )
-}
-
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.4 })
-
-  return <MotionDiv className="scroll-progress" style={{ scaleX }} aria-hidden="true" />
 }
 
 const iconPaths = {
@@ -447,7 +440,6 @@ export default function DylanPortfolio() {
   return (
     <>
       <AnimatePresence>{!introComplete && <IntroTerminal />}</AnimatePresence>
-      {introComplete && <ScrollProgress />}
       <MotionDiv
         className="site-shell"
         // Reveal with opacity + transform only. These run on the GPU compositor;

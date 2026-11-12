@@ -338,32 +338,89 @@ export default function DylanPortfolio() {
     document.documentElement.dataset.theme = theme
   }, [theme])
 
+  // Cursor spotlight for project cards. Only runs while the pointer is over the
+  // projects grid, and writes card-local coordinates onto each card instead of
+  // :root, so it never triggers a whole-document style recalc and the CSS can
+  // avoid `background-attachment: fixed` (which forces a repaint every scroll frame).
+  const projectsGridRef = useRef(null)
+
   useEffect(() => {
-    if (prefersReducedMotion()) {
+    const grid = projectsGridRef.current
+    if (!grid || prefersReducedMotion()) {
       return undefined
     }
 
     let frame = 0
-    const root = document.documentElement
-    const onPointerMove = (event) => {
-      if (frame) {
-        return
-      }
-      frame = window.requestAnimationFrame(() => {
-        frame = 0
-        root.style.setProperty('--spot-x', event.clientX.toFixed(1))
-        root.style.setProperty('--spot-y', event.clientY.toFixed(1))
-        root.style.setProperty('--spot-xp', (event.clientX / window.innerWidth).toFixed(3))
-      })
-    }
+    let pointerX = 0
+    let pointerY = 0
+    let settleUntil = 0
+    const cards = () => grid.querySelectorAll('.project-card')
 
-    window.addEventListener('pointermove', onPointerMove, { passive: true })
-    return () => {
-      window.removeEventListener('pointermove', onPointerMove)
+    const update = (now) => {
+      frame = 0
+      for (const card of cards()) {
+        const rect = card.getBoundingClientRect()
+        card.style.setProperty('--spot-x', (pointerX - rect.left).toFixed(1))
+        card.style.setProperty('--spot-y', (pointerY - rect.top).toFixed(1))
+      }
+      grid.style.setProperty('--spot-xp', (pointerX / window.innerWidth).toFixed(3))
+      if (now < settleUntil) {
+        frame = window.requestAnimationFrame(update)
+      }
+    }
+    const schedule = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(update)
+      }
+    }
+    const onPointerMove = (event) => {
+      pointerX = event.clientX
+      pointerY = event.clientY
+      // Cards move under a still cursor (hover lift, scroll-reveal), so keep
+      // re-measuring for a moment after each move.
+      settleUntil = performance.now() + 700
+      schedule()
+    }
+    const onPointerEnter = (event) => {
+      onPointerMove(event)
+      window.addEventListener('scroll', schedule, { passive: true })
+    }
+    const onPointerLeave = () => {
+      window.removeEventListener('scroll', schedule)
+      settleUntil = 0
       if (frame) {
         window.cancelAnimationFrame(frame)
+        frame = 0
+      }
+      for (const card of cards()) {
+        card.style.removeProperty('--spot-x')
+        card.style.removeProperty('--spot-y')
       }
     }
+
+    grid.addEventListener('pointerenter', onPointerEnter)
+    grid.addEventListener('pointermove', onPointerMove, { passive: true })
+    grid.addEventListener('pointerleave', onPointerLeave)
+    return () => {
+      grid.removeEventListener('pointerenter', onPointerEnter)
+      grid.removeEventListener('pointermove', onPointerMove)
+      grid.removeEventListener('pointerleave', onPointerLeave)
+      onPointerLeave()
+    }
+  }, [])
+
+  // Pause the looping topology / terminal animations while they're off-screen.
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') {
+      return undefined
+    }
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        entry.target.classList.toggle('anim-paused', !entry.isIntersecting)
+      }
+    })
+    document.querySelectorAll('.cyber-visual, .terminal-widget').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   const contactRef = useRef(null)
@@ -399,6 +456,10 @@ export default function DylanPortfolio() {
           opacity: introComplete ? 1 : 0,
           y: introComplete ? 0 : 14,
           filter: introComplete ? 'blur(0px)' : 'blur(10px)',
+          // A leftover `filter: blur(0px)` on the page wrapper turns the whole site
+          // into one filtered layer (and breaks the position:fixed backgrounds),
+          // which makes scrolling expensive. Drop it once the reveal finishes.
+          ...(introComplete && { transitionEnd: { filter: 'none' } }),
         }}
         transition={{
           delay: introComplete ? 0.22 : 0,
@@ -602,7 +663,7 @@ export default function DylanPortfolio() {
             </p>
           </div>
 
-          <MotionDiv className="projects-grid" variants={containerVariants}>
+          <MotionDiv className="projects-grid" variants={containerVariants} ref={projectsGridRef}>
             {projects.map((project, index) => (
               <MotionArticle
                 className="project-card"

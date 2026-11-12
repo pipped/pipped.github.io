@@ -514,7 +514,8 @@ button {
   border-radius: 8px;
   background: var(--surface);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
+  /* No backdrop-filter here: --surface is already ~85-90% opaque, so the blur
+     was barely visible but had to be recomputed for every card on every scroll frame. */
 }
 
 .hero-card::before,
@@ -1506,8 +1507,9 @@ p {
 }
 
 /* Cursor-tracking spotlight border, ported from the GlowCard component
-   and tuned to the violet accent. Driven by --spot-x / --spot-y / --spot-xp
-   (set on :root from a global pointermove listener in App.jsx). */
+   and tuned to the violet accent. --spot-x / --spot-y are card-local pixel
+   coordinates set on each .project-card, and --spot-xp is set on .projects-grid,
+   only while the pointer is over the grid (see App.jsx). */
 .projects-grid {
   --spot-base: 248;
   --spot-spread: 92;
@@ -1531,7 +1533,7 @@ p {
   inset: 0;
   border-radius: inherit;
   border: var(--spot-border) solid transparent;
-  background-attachment: fixed;
+  background-origin: border-box;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: 100% 100%;
@@ -1711,6 +1713,14 @@ p {
 .project-link:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--warm) 46%, transparent);
   outline-offset: 3px;
+}
+
+/* Set by an IntersectionObserver in App.jsx when a looping widget is off-screen. */
+.anim-paused,
+.anim-paused *,
+.anim-paused *::before,
+.anim-paused *::after {
+  animation-play-state: paused !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

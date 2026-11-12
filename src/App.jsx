@@ -29,12 +29,12 @@ const projects = [
     link: 'https://github.com/pipped/ai-transcribe',
   },
   {
-    title: 'CIT',
-    tag: 'IT Operations',
+    title: 'AWS Cloud & Security Labs',
+    tag: 'Cloud Security / AWS',
     description:
-      'Hands-on IT support documentation covering installs, VMware deployment, troubleshooting, permissions, and security configuration.',
-    stack: ['Windows', 'Linux', 'VMware', 'Security'],
-    link: 'https://github.com/pipped/CIT',
+      'Six hands-on AWS labs: multi-AZ VPCs, tiered security groups, IAM + MFA, WAF, VPN, Auto Scaling, RDS, and a serverless Lambda/DynamoDB app, with CloudFormation and Terraform.',
+    stack: ['AWS', 'VPC', 'IAM', 'CloudFormation', 'Terraform'],
+    link: 'https://github.com/pipped/aws-cloud-labs',
   },
 ]
 

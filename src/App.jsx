@@ -186,9 +186,10 @@ function IntroTerminal() {
   return (
     <MotionDiv
       className="intro-terminal-screen"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 1.03 }}
+      transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+      style={{ willChange: 'opacity, transform' }}
       aria-label="Portfolio loading animation"
     >
       <div className="intro-terminal" aria-hidden="true">
@@ -333,6 +334,8 @@ export default function DylanPortfolio() {
   const [introComplete, setIntroComplete] = useState(
     () => readIntroSeen() || prefersReducedMotion(),
   )
+  // True until the post-intro reveal finishes; only then is will-change dropped.
+  const [revealing, setRevealing] = useState(() => !introComplete)
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -447,24 +450,29 @@ export default function DylanPortfolio() {
       {introComplete && <ScrollProgress />}
       <MotionDiv
         className="site-shell"
+        // Reveal with opacity + transform only. These run on the GPU compositor;
+        // the old full-page `filter: blur()` had to re-blur the whole viewport on
+        // every frame, which is what made the intro → site handoff stutter.
         initial={{
           opacity: introComplete ? 1 : 0,
-          y: introComplete ? 0 : 14,
-          filter: introComplete ? 'blur(0px)' : 'blur(10px)',
+          y: introComplete ? 0 : 18,
+          scale: introComplete ? 1 : 0.985,
         }}
         animate={{
           opacity: introComplete ? 1 : 0,
-          y: introComplete ? 0 : 14,
-          filter: introComplete ? 'blur(0px)' : 'blur(10px)',
-          // A leftover `filter: blur(0px)` on the page wrapper turns the whole site
-          // into one filtered layer (and breaks the position:fixed backgrounds),
-          // which makes scrolling expensive. Drop it once the reveal finishes.
-          ...(introComplete && { transitionEnd: { filter: 'none' } }),
+          y: introComplete ? 0 : 18,
+          scale: introComplete ? 1 : 0.985,
         }}
         transition={{
-          delay: introComplete ? 0.22 : 0,
-          duration: 1.35,
+          delay: introComplete ? 0.12 : 0,
+          duration: 0.9,
           ease: [0.16, 1, 0.3, 1],
+        }}
+        style={{ willChange: revealing ? 'opacity, transform' : 'auto' }}
+        onAnimationComplete={() => {
+          if (introComplete) {
+            setRevealing(false)
+          }
         }}
       >
       <div className="grid-field" aria-hidden="true" />
